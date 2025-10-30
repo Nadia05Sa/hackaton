@@ -13,25 +13,20 @@ import GridViewIcon from '@mui/icons-material/GridView';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import Swal from 'sweetalert2';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 
 import { authService } from './../../../service/authService';
 
 import imagenDefaul from './../../../assets/imagenDefaul.png';
-import iamaLogo from './../../../assets/iamalogo.png';
-import iamaFondo from './../../../assets/fondo-iama-informes-vertical.jpg';
 
 import CrearEmpleado from './CrearEmpleado';
 
 const headCells = [
   { id: 'no', numeric: true, center: true, xs: true, disablePadding: false, label: 'No.' },
-  { id: 'nombre', numeric: false, center: false, xs: true, disablePadding: false, label: 'Nombre' },
-  { id: 'puesto', numeric: false, center: false, xs: false, disablePadding: false, label: 'Puesto' },
-  { id: 'departamento', numeric: false, center: false, xs: false, disablePadding: false, label: 'Departamento' },
-  { id: 'telefono', numeric: true, center: false, xs: false, disablePadding: false, label: 'No. Telefono' },
+  { id: 'nombre', numeric: false, center: false, xs: true, disablePadding: false, label: 'Lugar' },
+  { id: 'puesto', numeric: false, center: false, xs: false, disablePadding: false, label: 'Ubicación' },
+  { id: 'departamento', numeric: false, center: false, xs: false, disablePadding: false, label: 'Categoria' },
+  { id: 'telefono', numeric: true, center: false, xs: false, disablePadding: false, label: 'Horario' },
   { id: 'opciones', numeric: true, center: true, xs: false, disablePadding: false, label: 'Opciones' },
 ];
 
@@ -174,7 +169,7 @@ const Empleado = () => {
     cargarEmpleados();
   }, [location.pathname, error]);
 
-  const pdf = () => {
+  {/*const pdf = () => {
     if (empleadosFiltrados <= 0) {
       Swal.fire({
         title: 'Error',
@@ -243,7 +238,7 @@ const Empleado = () => {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     }
-  };
+  };*/}
 
   const agregarEmpleado = () => {
     navigate('crearEmpleado', { state: { titulo: 'Agregar Empleado' } })
@@ -261,9 +256,9 @@ const Empleado = () => {
   return (
     <Box className="mt-3">
       <Box sx={{ display: 'flex', justifyContent: isXs ? 'center' : 'space-between', alignItems: 'center', mb: isXs ? 2 : 0, flexWrap: 'wrap', gap: 2, }}>
-        <h1 className="page-title" style={{ paddingLeft: isXs ? 0 : "3rem", textAlign: isXs ? 'center' : 'left' }}>Empleados</h1>
+        <h1 className="page-title" style={{ paddingLeft: isXs ? 0 : "3rem", textAlign: isXs ? 'center' : 'left' }}>Lugares</h1>
         <Box className="botones-superiores" sx={{ paddingRight: isXs ? 0 : "3rem", gap: 2, display: 'flex', flexWrap: 'wrap', justifyContent: isXs ? 'center' : 'flex-end' }}>
-          <Button variant="contained" onClick={pdf}>Informe</Button>
+          {/*<Button variant="contained" onClick={pdf}>Informe</Button>*/}
           <Button variant="contained" onClick={agregarEmpleado}>Agregar</Button>
         </Box>
       </Box>
@@ -283,7 +278,7 @@ const Empleado = () => {
       >
         <TextField
           size="small"
-          placeholder="Buscar empleado..."
+          placeholder="Buscar lugares..."
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
           sx={{
@@ -384,7 +379,7 @@ const Empleado = () => {
                             />
 
                           </Box>
-                          <Box sx={{ display: 'flex', alignItems: 'end', borderBottomLeftRadius: 10, marginTop: -4 }}>
+                          {/*<Box sx={{ display: 'flex', alignItems: 'end', borderBottomLeftRadius: 10, marginTop: -4 }}>
                             <CardMedia
                               component='img'
                               image={iamaLogo}
@@ -403,7 +398,7 @@ const Empleado = () => {
                               </Typography>
                             </Box>
 
-                          </Box>
+                          </Box>*/}
 
                         </CardContent>
                       </CardActionArea>
@@ -443,7 +438,7 @@ const Empleado = () => {
                       }
                       {!isXs &&
                         <TableCell align='center'>
-                          <Tooltip title="Ver empleado">
+                          <Tooltip title="Ver Lugar">
                             <IconButton onClick={() => verEmpleado(item.id)} color="primary">
                               <VisibilityOutlinedIcon />
                             </IconButton>
@@ -456,7 +451,7 @@ const Empleado = () => {
                   {visibleRows.length === 0 && (
                     <TableRow>
                       <TableCell colSpan={4} align="center">
-                        {error ? error : "No hay empleados para mostrar."}
+                        {error ? error : "No hay lugares para mostrar."}
                       </TableCell>
                     </TableRow>
                   )}

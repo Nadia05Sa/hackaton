@@ -9,6 +9,9 @@ import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import LibraryAddCheckOutlinedIcon from '@mui/icons-material/LibraryAddCheckOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
+
 
 import iamatwo from "./../../assets/iamatwo.png";
 import iamatwoLogo from "./../../assets/iamatwoLogo.png";
@@ -88,12 +91,13 @@ const Sidebar = () => {
   const navItems = [
     { to: "/profile", label: "Perfil", icon: <PersonOutlineOutlinedIcon size={26} /> },
     rol === "ADMIN" && { to: "/operador", label: "Operadores", icon: <ManageAccountsOutlinedIcon size={26} /> },
-    { to: "/equipo", label: "Equipos", icon: <DesktopWindowsOutlinedIcon size={26} /> },
-    { to: "/empleado", label: "Empleados", icon: <GroupsOutlinedIcon size={26} /> },
-    { to: "/asignacion", label: "Asignaciones", icon: <AssignmentOutlinedIcon size={26} /> },
-    { to: "/validacion", label: "Peticiones", icon: <LibraryAddCheckOutlinedIcon size={26} /> },
+    { to: "/equipo", label: "Productos", icon: <ShoppingCartOutlinedIcon sx={{ fontSize: 26 }} /> },
+    { to: "/empleado", label: "Lugares",icon: <MapOutlinedIcon sx={{ fontSize: 26 }} />  },
     { to: "/", label: "Salir", icon: <LogoutOutlinedIcon size={26} /> },
   ].filter(Boolean); // Filtra null si el rol no es admin
+   {/* { to: "/asignacion", label: "Asignaciones", icon: <AssignmentOutlinedIcon size={26} /> },
+    { to: "/validacion", label: "Peticiones", icon: <LibraryAddCheckOutlinedIcon size={26} /> },*/}
+    
 
   return (
     <>
@@ -128,7 +132,7 @@ const Sidebar = () => {
             {/* Solo muestra el logo en pantallas grandes */}
             <IconButton onClick={toggleDrawer}>
               {open ? (
-                <img src={iamatwo} alt="Logo" style={{ width: "35%" }} />
+                <img src={iamatwo} alt="Logo" style={{ width: "15%" }} />
               ) : (
                 <img src={iamatwoLogo} alt="Logo" style={{ width: "35%" }} />
               )}

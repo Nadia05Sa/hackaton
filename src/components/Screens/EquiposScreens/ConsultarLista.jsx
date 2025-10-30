@@ -284,7 +284,7 @@ const ConsultarLista = () => {
               equipo.tipo || '', equipo.marca || '', equipo.modelo || '', equipo.numero_serie || ''
             ]);
 
-            var logo = new Image();
+           var logo = new Image();
             logo.src = iamaLogo;
             doc.addImage(logo, 'JPEG', 15, 8, 43, 18);
             doc.setFontSize(12);

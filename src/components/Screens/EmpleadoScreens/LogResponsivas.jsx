@@ -200,7 +200,7 @@ const LogResponsivas = () => {
             >
                 <TextField
                     size="small"
-                    placeholder="Buscar empleado..."
+                    placeholder="Buscar Lugares..."
                     value={busqueda}
                     onChange={(e) => setBusqueda(e.target.value)}
                     sx={{

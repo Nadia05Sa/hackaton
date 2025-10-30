@@ -67,7 +67,7 @@ const AgregarEquipo = () => {
       }
 
     } catch (err) {
-      const mensaje = err.response?.data?.metadata?.[0]?.date || 'Error al registrar el equipo.';
+      const mensaje = err.response?.data?.metadata?.[0]?.date || 'Error al registrar el producto.';
 
       Swal.fire({
         title: 'Error',
@@ -88,7 +88,7 @@ const AgregarEquipo = () => {
         flexWrap: 'wrap',
         gap: 2
       }}>
-        <h3 className="page-title" style={{ paddingLeft: isXs ? 0 : "3rem", textAlign: isXs ? 'center' : 'start' }}>{titulo}</h3>
+        <h3 className="page-title" style={{ paddingLeft: isXs ? 0 : "3rem", textAlign: isXs ? 'center' : 'start' }}>Agregar producto</h3>
       </Box>
 
       <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'black', mb: 3 }} />
@@ -139,25 +139,25 @@ const AgregarEquipo = () => {
               marginTop: isXs ? 3 : 0
             }}>
               <TextField
-                label="Tipo de equipo"
+                label="Nombre de producto"
                 {...register('tipo')}
                 error={!!errors.tipo}
                 helperText={errors.tipo?.message}
               />
               <TextField
-                label="Número de serie"
+                label="Cantidad / Número de serie"
                 {...register('numero_serie')}
                 error={!!errors.numero_serie}
                 helperText={errors.numero_serie?.message}
               />
               <TextField
-                label="Marca"
+                label="Precio"
                 {...register('marca')}
                 error={!!errors.marca}
                 helperText={errors.marca?.message}
               />
               <TextField
-                label="Modelo"
+                label="Categoria"
                 {...register('modelo')}
                 error={!!errors.modelo}
                 helperText={errors.modelo?.message}
@@ -172,10 +172,10 @@ const AgregarEquipo = () => {
             gap: 2,
             padding: 2
           }}>
-            <TextField label="Sistema operativo" {...register('sistema_operativo')} />
-            <TextField label="Procesador" {...register('procesador')} />
-            <TextField label="RAM (GB)" {...register('ram')} />
-            <TextField label="Almacenamiento (GB)" {...register('almacenamiento')} />
+            <TextField label="Modelo" {...register('sistema_operativo')} />
+            <TextField label="Marca" {...register('procesador')} />
+            <TextField label="Categoria" {...register('ram')} />
+            <TextField label="Descripción" {...register('almacenamiento')} />
             <TextField label="Comentario" {...register('comentario')} sx={{ width: isXs ? ('100%') : ('203%') }} />
           </Box>
 

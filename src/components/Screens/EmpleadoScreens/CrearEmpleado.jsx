@@ -52,7 +52,7 @@ const CrearEmpleado = () => {
             if (meta?.codigo === "-1") {
                 Swal.fire("Error", meta.date || "Error al registrar", "error");
             } else {
-                Swal.fire("Registrado", "Empleado registrado correctamente", "success").then(() => {
+                Swal.fire("Registrado", "Lugar registrado correctamente", "success").then(() => {
                     navigate(-1);
                 });
             }
@@ -76,7 +76,7 @@ const CrearEmpleado = () => {
                     gap: 2
                 }}
             >
-                <h1 className="page-title" style={{ paddingLeft: isXs ? 0 : "3rem", textAlign: isXs ? 'center' : 'left' }}>{titulo}</h1>
+                <h1 className="page-title" style={{ paddingLeft: isXs ? 0 : "3rem", textAlign: isXs ? 'center' : 'left' }}>Registrar Lugares</h1>
             </Box>
 
             <Divider variant="middle" sx={{ borderBottomWidth: 2, borderColor: 'black' }} />
@@ -134,33 +134,33 @@ const CrearEmpleado = () => {
                             <Stack spacing={2} sx={{ flexGrow: 1, width: '100%' }}>
                                 <Stack spacing={1} direction={{ xs: 'column', sm: 'row', md: 'row' }} sx={{ gap: 2 }}>
                                     <FormControl sx={{ flex: 1 }}>
-                                        <FormLabel>Nombre</FormLabel>
+                                        <FormLabel>Nombre del lugar</FormLabel>
                                         <Input size="sm" onChange={(e) => setEmpleado({ ...empleado, nombre: e.target.value })} />
                                     </FormControl>
                                     <FormControl sx={{ flex: 1 }}>
-                                        <FormLabel>Teléfono</FormLabel>
+                                        <FormLabel>Ubicación</FormLabel>
                                         <Input size="sm" onChange={(e) => setEmpleado({ ...empleado, telefono: e.target.value })} />
                                     </FormControl>
                                 </Stack>
 
                                 <Stack direction={{ xs: 'column', sm: 'row', md: 'row' }} spacing={2}>
                                     <FormControl sx={{ flex: 1 }}>
-                                        <FormLabel>Apellido Paterno</FormLabel>
+                                        <FormLabel>Estado</FormLabel>
                                         <Input size="sm" onChange={(e) => setEmpleado({ ...empleado, apellido_p: e.target.value })} />
                                     </FormControl>
                                     <FormControl sx={{ flex: 1 }}>
-                                        <FormLabel>Apellido Materno</FormLabel>
+                                        <FormLabel>Municipio</FormLabel>
                                         <Input size="sm" onChange={(e) => setEmpleado({ ...empleado, apellido_m: e.target.value })} />
                                     </FormControl>
                                 </Stack>
 
                                 <Stack direction={{ xs: 'column', sm: 'row', md: 'row' }} spacing={2}>
                                     <FormControl sx={{ flex: 1 }}>
-                                        <FormLabel>Puesto</FormLabel>
+                                        <FormLabel>Categoria</FormLabel>
                                         <Input size="sm" onChange={(e) => setEmpleado({ ...empleado, puesto: e.target.value })} />
                                     </FormControl>
                                     <FormControl sx={{ flex: 1 }}>
-                                        <FormLabel>Departamento</FormLabel>
+                                        <FormLabel>Horario</FormLabel>
                                         <Input size="sm" onChange={(e) => setEmpleado({ ...empleado, departamento: e.target.value })} />
                                     </FormControl>
                                 </Stack>

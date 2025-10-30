@@ -31,10 +31,10 @@ const filtros = ['Activos', 'Asignados', 'Pendientes'];
 
 const headCells = [
     { id: 'no', numeric: true, center: true, xs: true, disablePadding: false, label: 'No.' },
-    { id: 'tipo', numeric: false, center: false, xs: true, disablePadding: false, label: 'Tipo' },
-    { id: 'no.serie', numeric: false, center: false, xs: false, disablePadding: false, label: 'No. Serie' },
-    { id: 'marca', numeric: false, center: false, xs: false, disablePadding: false, label: 'Marca' },
-    { id: 'modelo', numeric: false, center: false, xs: true, disablePadding: false, label: 'No. Modelo' },
+    { id: 'tipo', numeric: false, center: false, xs: true, disablePadding: false, label: 'Nombre' },
+    { id: 'no.serie', numeric: false, center: false, xs: false, disablePadding: false, label: 'Cantidad' },
+    { id: 'marca', numeric: false, center: false, xs: false, disablePadding: false, label: 'Precio por unidad' },
+    { id: 'modelo', numeric: false, center: false, xs: true, disablePadding: false, label: 'Marca' },
     { id: 'seleccionar', numeric: false, center: true, xs: false, disablePadding: false, label: 'Seleccionar' },
 ];
 
@@ -209,7 +209,7 @@ const Equipo = () => {
                 format: 'letter'
             });
             var logo = new Image();
-            //Logo
+           //Logo
             logo.src = iamaFondo;
             const pageWidth = doc.internal.pageSize.getWidth();
             const pageHeight = doc.internal.pageSize.getHeight();
@@ -292,10 +292,10 @@ const Equipo = () => {
     return (
         <Box className="mt-3">
             <Box sx={{ display: 'flex', justifyContent: isXs ? 'center' : 'space-between', mb: isXs ? 2 : 0, alignItems: 'center', flexWrap: 'wrap', gap: 2, }}>
-                <h1 className="page-title" style={{ paddingLeft: isXs ? 0 : "3rem", textAlign: isXs ? 'center' : 'left' }}>Equipos</h1>
+                <h1 className="page-title" style={{ paddingLeft: isXs ? 0 : "3rem", textAlign: isXs ? 'center' : 'left' }}>Productos</h1>
                 <Box className="botones-superiores" sx={{ paddingRight: isXs || isSm ? 0 : "3rem", display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: isXs || isSm ? 'center' : 'flex-end' }}>
-                    <Button variant="contained" onClick={pdf}>Informe</Button>
-                    <Button variant="contained" onClick={gestionarEquipos}>Gestionar</Button>
+                   {/*<Button variant="contained" onClick={pdf}>Informe</Button>*/}
+                    {/*<Button variant="contained" onClick={gestionarEquipos}>Gestionar</Button>*/}
                     <Button variant="contained" onClick={agregarEquipo}>Agregar</Button>
                 </Box>
             </Box>
@@ -325,7 +325,7 @@ const Equipo = () => {
             >
                 <TextField
                     size="small"
-                    placeholder="Buscar equipo..."
+                    placeholder="Buscar productos..."
                     value={busqueda}
                     onChange={(e) => setBusqueda(e.target.value)}
                     sx={{
@@ -444,7 +444,7 @@ const Equipo = () => {
                                                                 </Typography>
                                                             </Box>
 
-                                                            <CardMedia
+                                                           <CardMedia
                                                                 component="img"
                                                                 height="140"
                                                                 image={(item.fotoBase64 !== null && `data:image/png;base64,${item.fotoBase64}`) || imagenDefaul}
@@ -457,7 +457,7 @@ const Equipo = () => {
                                                             />
 
                                                         </Box>
-                                                        <Box sx={{ display: 'flex', alignItems: 'end', borderBottomLeftRadius: 10, marginTop: -4 }}>
+                                                       {/*<Box sx={{ display: 'flex', alignItems: 'end', borderBottomLeftRadius: 10, marginTop: -4 }}>
                                                             <CardMedia
                                                                 component='img'
                                                                 image={iamaLogo}
@@ -476,7 +476,7 @@ const Equipo = () => {
                                                                 </Typography>
                                                             </Box>
 
-                                                        </Box>
+                                                        </Box>*/}
 
                                                     </CardContent>
                                                 </CardActionArea>
