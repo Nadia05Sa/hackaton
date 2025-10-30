@@ -146,7 +146,7 @@ export default function LoginPage() {
             }}
           >
             <h1 className="text-center mt-4" style={{ color: '#000' }}>Inicio de sesión</h1>
-            <p className="text-center mb-4" style={{ color: '#000' }}>Bienvenido a SIPET</p>
+            <p className="text-center mb-4" style={{ color: '#000' }}>Bienvenido a Alma Viajera</p>
 
             <form onSubmit={handleSubmit(onSubmit)} className="p-4">
               <div className="mb-3">
