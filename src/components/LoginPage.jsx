@@ -427,6 +427,7 @@ export default function LoginPage() {
                     fullWidth
                     type={showPassword ? "text" : "password"}
                     placeholder="Ingresa tu contraseña"
+                    autoComplete="current-password"
                     {...loginForm.register("password")}
                     error={!!loginForm.formState.errors.password}
                     helperText={loginForm.formState.errors.password?.message}
@@ -443,7 +444,6 @@ export default function LoginPage() {
                           </IconButton>
                         </InputAdornment>
                       ),
-                      sx: { height: 48 }
                     }}
                     sx={{
                       '& .MuiOutlinedInput-root': {
@@ -452,10 +452,10 @@ export default function LoginPage() {
                         '&:hover fieldset': { borderColor: colors.accent },
                         '&.Mui-focused fieldset': { borderColor: colors.accent },
                       },
+                      '& .MuiInputBase-root': { height: 48 },
                     }}
                   />
                 </FormField>
-
                 <Box sx={{ textAlign: 'right', mb: 2 }}>
                   <Button
                     onClick={() => navigate('/rePassword')}

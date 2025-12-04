@@ -42,7 +42,7 @@ const colors = {
 export default function Dashboard() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  
+
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [periodoFiltro, setPeriodoFiltro] = useState('mes');
@@ -55,17 +55,17 @@ export default function Dashboard() {
       const categoriasPopulares = estadisticasData.categoriasPopulares();
       const lugaresActivos = estadisticasData.lugaresActivos();
       const ultimosTrueques = estadisticasData.ultimosTrueques();
-      
+
       // Calcular promedio mensual
-      const promedioMensual = truequesPorMes.length > 0 
+      const promedioMensual = truequesPorMes.length > 0
         ? Math.round(truequesPorMes.reduce((acc, m) => acc + m.cantidad, 0) / truequesPorMes.length)
         : 0;
-      
+
       // Calcular tasa de éxito
-      const tasaExito = resumen.totalTrueques > 0 
+      const tasaExito = resumen.totalTrueques > 0
         ? ((resumen.truequesCompletados / resumen.totalTrueques) * 100).toFixed(0)
         : 0;
-      
+
       setStats({
         ...resumen,
         truequesPorMes,
@@ -77,7 +77,7 @@ export default function Dashboard() {
         // Trueques urgentes (pendientes que simulamos como urgentes)
         truequesPendientesUrgentes: Math.max(0, Math.floor(resumen.truequesPendientes / 2)),
       });
-      
+
       setLoading(false);
     }, 400);
   };
@@ -142,7 +142,7 @@ export default function Dashboard() {
         <Skeleton variant="text" width={300} height={50} sx={{ mb: 3 }} />
         <Grid container spacing={2}>
           {Array.from(new Array(6)).map((_, i) => (
-            <Grid item xs={6} sm={4} md={2} key={i}>
+            <Grid size={{ xs: 12, sm: 6, md: 2 }} key={i}>
               <Skeleton variant="rectangular" height={120} sx={{ borderRadius: 3 }} />
             </Grid>
           ))}
@@ -167,7 +167,7 @@ export default function Dashboard() {
               Resumen de actividad • Datos en tiempo real
             </Typography>
           </Box>
-          
+
           {/* Filtro de periodo */}
           <Box sx={{ display: "flex", gap: 1.5, alignItems: "center" }}>
             <ToggleButtonGroup
@@ -202,49 +202,49 @@ export default function Dashboard() {
           📊 Actividad de Trueques
         </Typography>
         <Grid container spacing={2} sx={{ mb: 3 }}>
-          <Grid item xs={6} sm={4} md={2.4}>
-            <MetricCard 
-              title="Total Trueques" 
-              value={stats.totalTrueques} 
-              icon={<SwapHorizIcon />} 
-              color={colors.accent} 
+          <Grid size={{ xs: 12, sm: 6, md: 2.4 }}>
+            <MetricCard
+              title="Total Trueques"
+              value={stats.totalTrueques}
+              icon={<SwapHorizIcon />}
+              color={colors.accent}
               tendencia={stats.totalTrueques > 0 ? 12 : null}
             />
           </Grid>
-          <Grid item xs={6} sm={4} md={2.4}>
-            <MetricCard 
-              title="Completados" 
-              value={stats.truequesCompletados} 
-              icon={<CheckCircleIcon />} 
+          <Grid size={{ xs: 12, sm: 6, md: 2.4 }}>
+            <MetricCard
+              title="Completados"
+              value={stats.truequesCompletados}
+              icon={<CheckCircleIcon />}
               color={colors.success}
               subtitle={`${stats.tasaExito}% de éxito`}
             />
           </Grid>
-          <Grid item xs={6} sm={4} md={2.4}>
-            <MetricCard 
-              title="Pendientes" 
-              value={stats.truequesPendientes} 
-              icon={<PendingIcon />} 
+          <Grid size={{ xs: 12, sm: 6, md: 2.4 }}>
+            <MetricCard
+              title="Pendientes"
+              value={stats.truequesPendientes}
+              icon={<PendingIcon />}
               color={colors.warning}
             />
           </Grid>
-          <Grid item xs={6} sm={6} md={2.4}>
-            <MetricCard 
-              title="Requieren Atención" 
-              value={stats.truequesPendientesUrgentes} 
-              icon={<WarningIcon />} 
-              color={colors.error} 
-              subtitle="> 7 días sin respuesta" 
+          <Grid size={{ xs: 12, sm: 6, md: 2.4 }}>
+            <MetricCard
+              title="Requieren Atención"
+              value={stats.truequesPendientesUrgentes}
+              icon={<WarningIcon />}
+              color={colors.error}
+              subtitle="> 7 días sin respuesta"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={2.4}>
-            <MetricCard 
-              title="Tasa de Éxito" 
-              value={`${stats.tasaExito}%`} 
-              icon={<SpeedIcon />} 
-              color={colors.accent} 
-              destacado 
-              subtitle="Meta: 80%" 
+          <Grid size={{ xs: 12, sm: 6, md: 2.4 }}>
+            <MetricCard
+              title="Tasa de Éxito"
+              value={`${stats.tasaExito}%`}
+              icon={<SpeedIcon />}
+              color={colors.accent}
+              destacado
+              subtitle="Meta: 80%"
             />
           </Grid>
         </Grid>
@@ -254,35 +254,35 @@ export default function Dashboard() {
           📦 Inventario y Comunidad
         </Typography>
         <Grid container spacing={2} sx={{ mb: 4 }}>
-          <Grid item xs={6} sm={3}>
-            <MetricCard 
-              title="Productos Activos" 
-              value={stats.totalProductos} 
-              icon={<InventoryIcon />} 
+          <Grid size={{ xs: 12, sm: 3 }}>
+            <MetricCard
+              title="Productos Activos"
+              value={stats.totalProductos}
+              icon={<InventoryIcon />}
               color={colors.info}
             />
           </Grid>
-          <Grid item xs={6} sm={3}>
-            <MetricCard 
-              title="Usuarios" 
-              value={stats.totalUsuarios} 
-              icon={<PeopleIcon />} 
+          <Grid size={{ xs: 12, sm: 3 }}>
+            <MetricCard
+              title="Usuarios"
+              value={stats.totalUsuarios}
+              icon={<PeopleIcon />}
               color={colors.gold}
             />
           </Grid>
-          <Grid item xs={6} sm={3}>
-            <MetricCard 
-              title="Puntos de Trueque" 
-              value={stats.totalLugaresTrueque} 
-              icon={<StorefrontIcon />} 
+          <Grid size={{ xs: 12, sm: 3 }}>
+            <MetricCard
+              title="Puntos de Trueque"
+              value={stats.totalLugaresTrueque}
+              icon={<StorefrontIcon />}
               color={colors.primary}
             />
           </Grid>
-          <Grid item xs={6} sm={3}>
-            <MetricCard 
-              title="Lugares Turísticos" 
-              value={stats.totalLugaresTuristicos} 
-              icon={<PlaceIcon />} 
+          <Grid size={{ xs: 12, sm: 3 }}>
+            <MetricCard
+              title="Lugares Turísticos"
+              value={stats.totalLugaresTuristicos}
+              icon={<PlaceIcon />}
               color={colors.gold}
             />
           </Grid>
@@ -291,7 +291,7 @@ export default function Dashboard() {
         {/* ===== SECCIÓN 3: GRÁFICOS ===== */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
           {/* Gráfico de Línea - Trueques por Mes */}
-          <Grid item xs={12} lg={7}>
+          <Grid size={{ xs: 12, lg: 6 }}>
             <Card sx={{ borderRadius: 3, border: `1px solid ${colors.border}`, height: "100%" }}>
               <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2, flexWrap: "wrap", gap: 1 }}>
@@ -299,10 +299,10 @@ export default function Dashboard() {
                     <TrendingUpIcon sx={{ color: colors.accent }} />
                     Trueques por Mes
                   </Typography>
-                  <Chip 
-                    label={`Promedio: ${stats.promedioMensual}`} 
-                    size="small" 
-                    sx={{ backgroundColor: `${colors.accent}15`, color: colors.accent, fontWeight: 600 }} 
+                  <Chip
+                    label={`Promedio: ${stats.promedioMensual}`}
+                    size="small"
+                    sx={{ backgroundColor: `${colors.accent}15`, color: colors.accent, fontWeight: 600 }}
                   />
                 </Box>
                 <Box sx={{ height: { xs: 250, sm: 280 } }}>
@@ -312,23 +312,23 @@ export default function Dashboard() {
                     height={isMobile ? 250 : 280}
                     padding={{ top: 20, bottom: 40, left: 40, right: 20 }}
                   >
-                    <VictoryAxis 
-                      tickValues={stats.truequesPorMes.map((d) => d.mes)} 
-                      style={{ tickLabels: { fontSize: 10, fill: colors.textSecondary } }} 
+                    <VictoryAxis
+                      tickValues={stats.truequesPorMes.map((d) => d.mes)}
+                      style={{ tickLabels: { fontSize: 10, fill: colors.textSecondary } }}
                     />
-                    <VictoryAxis 
-                      dependentAxis 
-                      style={{ 
-                        tickLabels: { fontSize: 10, fill: colors.textSecondary }, 
-                        grid: { stroke: colors.border, strokeDasharray: "4" } 
-                      }} 
+                    <VictoryAxis
+                      dependentAxis
+                      style={{
+                        tickLabels: { fontSize: 10, fill: colors.textSecondary },
+                        grid: { stroke: colors.border, strokeDasharray: "4" }
+                      }}
                     />
                     {/* Línea de promedio */}
-                    <VictoryLine 
-                      data={stats.truequesPorMes.map(d => ({ ...d, cantidad: stats.promedioMensual }))} 
-                      x="mes" 
-                      y="cantidad" 
-                      style={{ data: { stroke: colors.gold, strokeWidth: 2, strokeDasharray: "6,4" } }} 
+                    <VictoryLine
+                      data={stats.truequesPorMes.map(d => ({ ...d, cantidad: stats.promedioMensual }))}
+                      x="mes"
+                      y="cantidad"
+                      style={{ data: { stroke: colors.gold, strokeWidth: 2, strokeDasharray: "6,4" } }}
                     />
                     {/* Área principal */}
                     <VictoryArea
@@ -357,7 +357,7 @@ export default function Dashboard() {
           </Grid>
 
           {/* Gráfico de Barras Horizontal - Categorías Populares */}
-          <Grid item xs={12} lg={5}>
+          <Grid size={{ xs: 12, lg: 6 }}>
             <Card sx={{ borderRadius: 3, border: `1px solid ${colors.border}`, height: "100%" }}>
               <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                 <Typography variant="h6" sx={{ fontWeight: 700, color: colors.primary, mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
@@ -373,18 +373,18 @@ export default function Dashboard() {
                       height={isMobile ? 250 : 280}
                       padding={{ top: 10, bottom: 30, left: 90, right: 40 }}
                     >
-                      <VictoryAxis 
-                        style={{ 
-                          tickLabels: { fontSize: 10, fill: colors.primary, fontWeight: 500 }, 
-                          axis: { stroke: "transparent" } 
-                        }} 
+                      <VictoryAxis
+                        style={{
+                          tickLabels: { fontSize: 10, fill: colors.primary, fontWeight: 500 },
+                          axis: { stroke: "transparent" }
+                        }}
                       />
-                      <VictoryAxis 
-                        dependentAxis 
-                        style={{ 
-                          tickLabels: { fontSize: 9, fill: colors.textSecondary }, 
-                          grid: { stroke: colors.border, strokeDasharray: "4" } 
-                        }} 
+                      <VictoryAxis
+                        dependentAxis
+                        style={{
+                          tickLabels: { fontSize: 9, fill: colors.textSecondary },
+                          grid: { stroke: colors.border, strokeDasharray: "4" }
+                        }}
                       />
                       <VictoryBar
                         data={stats.categoriasPopulares.sort((a, b) => a.cantidad - b.cantidad)}
@@ -416,7 +416,7 @@ export default function Dashboard() {
         {/* ===== SECCIÓN 4: LUGARES Y ÚLTIMOS TRUEQUES ===== */}
         <Grid container spacing={3}>
           {/* Lugares Más Activos */}
-          <Grid item xs={12} md={5}>
+          <Grid size={{ xs: 12, sm: 5 }}>
             <Card sx={{ borderRadius: 3, border: `1px solid ${colors.border}`, height: "100%" }}>
               <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                 <Typography variant="h6" sx={{ fontWeight: 700, color: colors.primary, mb: 3, display: "flex", alignItems: "center", gap: 1 }}>
@@ -428,36 +428,36 @@ export default function Dashboard() {
                     <Box key={i} sx={{ mb: 2.5 }}>
                       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}>
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                          <Avatar 
-                            sx={{ 
-                              width: 28, 
-                              height: 28, 
-                              backgroundColor: `${[colors.accent, colors.gold, colors.info, colors.primary, colors.success][i]}20`, 
-                              fontSize: "0.75rem", 
-                              fontWeight: 700, 
-                              color: [colors.accent, colors.gold, colors.info, colors.primary, colors.success][i] 
+                          <Avatar
+                            sx={{
+                              width: 28,
+                              height: 28,
+                              backgroundColor: `${[colors.accent, colors.gold, colors.info, colors.primary, colors.success][i]}20`,
+                              fontSize: "0.75rem",
+                              fontWeight: 700,
+                              color: [colors.accent, colors.gold, colors.info, colors.primary, colors.success][i]
                             }}
                           >
                             {i + 1}
                           </Avatar>
-                          <Typography 
-                            variant="body2" 
-                            sx={{ 
-                              fontWeight: 600, 
-                              color: colors.primary, 
-                              maxWidth: 180, 
-                              overflow: "hidden", 
-                              textOverflow: "ellipsis", 
-                              whiteSpace: "nowrap" 
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              fontWeight: 600,
+                              color: colors.primary,
+                              maxWidth: 180,
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "nowrap"
                             }}
                           >
                             {lugar.nombre}
                           </Typography>
                         </Box>
-                        <Chip 
-                          label={`${lugar.trueques} trueques`} 
-                          size="small" 
-                          sx={{ backgroundColor: colors.background, color: colors.textSecondary, fontWeight: 500, height: 24 }} 
+                        <Chip
+                          label={`${lugar.trueques} trueques`}
+                          size="small"
+                          sx={{ backgroundColor: colors.background, color: colors.textSecondary, fontWeight: 500, height: 24 }}
                         />
                       </Box>
                       <LinearProgress
@@ -485,7 +485,7 @@ export default function Dashboard() {
           </Grid>
 
           {/* Últimos Trueques */}
-          <Grid item xs={12} md={7}>
+          <Grid size={{ xs: 12, sm: 7 }}>
             <Card sx={{ borderRadius: 3, border: `1px solid ${colors.border}`, height: "100%" }}>
               <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
@@ -493,25 +493,25 @@ export default function Dashboard() {
                     <AccessTimeIcon sx={{ color: colors.accent }} />
                     Últimos Trueques
                   </Typography>
-                  <Chip 
-                    icon={<CalendarTodayIcon sx={{ fontSize: 14 }} />} 
-                    label="Recientes" 
-                    size="small" 
-                    sx={{ backgroundColor: `${colors.accent}15`, color: colors.accent, fontWeight: 600 }} 
+                  <Chip
+                    icon={<CalendarTodayIcon sx={{ fontSize: 14 }} />}
+                    label="Recientes"
+                    size="small"
+                    sx={{ backgroundColor: `${colors.accent}15`, color: colors.accent, fontWeight: 600 }}
                   />
                 </Box>
-                
+
                 {stats.ultimosTrueques.length > 0 ? (
                   stats.ultimosTrueques.map((trueque, i) => (
                     <Box key={i}>
                       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", py: 1.5, flexWrap: "wrap", gap: 1 }}>
                         <Box sx={{ display: "flex", alignItems: "center", gap: 2, flex: 1, minWidth: 0 }}>
-                          <Avatar 
-                            sx={{ 
-                              backgroundColor: trueque.estado === "ACEPTADO" ? `${colors.success}15` : `${colors.warning}15`, 
-                              color: trueque.estado === "ACEPTADO" ? colors.success : colors.warning, 
-                              width: 40, 
-                              height: 40 
+                          <Avatar
+                            sx={{
+                              backgroundColor: trueque.estado === "ACEPTADO" ? `${colors.success}15` : `${colors.warning}15`,
+                              color: trueque.estado === "ACEPTADO" ? colors.success : colors.warning,
+                              width: 40,
+                              height: 40
                             }}
                           >
                             {trueque.estado === "ACEPTADO" ? <CheckCircleIcon sx={{ fontSize: 20 }} /> : <PendingIcon sx={{ fontSize: 20 }} />}

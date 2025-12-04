@@ -92,11 +92,11 @@ export default function AgregarLugarTrueque() {
               </Box>
 
               <Grid container spacing={2} sx={{ mb: 2 }}>
-                <Grid item xs={12} sm={7}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <FormLabel required>Nombre del lugar</FormLabel>
                   <TextField fullWidth placeholder="Ej: Tianguis del Chopo" {...register("nombre")} error={!!errors.nombre} helperText={errors.nombre?.message} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} />
                 </Grid>
-                <Grid item xs={12} sm={5}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <FormLabel required>Tipo de lugar</FormLabel>
                   <TextField fullWidth select defaultValue="" {...register("tipo")} error={!!errors.tipo} helperText={errors.tipo?.message} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }}>
                     <MenuItem value="" disabled>Seleccionar</MenuItem>
@@ -106,11 +106,10 @@ export default function AgregarLugarTrueque() {
               </Grid>
 
               <Grid container spacing={2} sx={{ mb: 2 }}>
-                <Grid item xs={12} sm={6}>
-                  <FormLabel required>Ubicación</FormLabel>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <TextField fullWidth placeholder="Ej: Col. Buenavista, CDMX" {...register("ubicacion")} error={!!errors.ubicacion} helperText={errors.ubicacion?.message} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <FormLabel required>Horario</FormLabel>
                   <TextField fullWidth placeholder="Ej: Sábados 10:00 AM - 5:00 PM" {...register("horario")} error={!!errors.horario} helperText={errors.horario?.message} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} />
                 </Grid>

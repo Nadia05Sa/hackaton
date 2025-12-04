@@ -46,7 +46,7 @@ export default function DetalleLugarTrueque() {
             <Typography variant="h4" sx={{ fontWeight: 700, color: colors.primary, mb: 2 }}>{lugar.nombre}</Typography>
 
             <Grid container spacing={2} sx={{ mb: 3 }}>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, backgroundColor: colors.background, p: 2, borderRadius: 2 }}>
                   <LocationOnIcon sx={{ color: colors.accent }} />
                   <Box>
@@ -55,7 +55,7 @@ export default function DetalleLugarTrueque() {
                   </Box>
                 </Box>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, backgroundColor: colors.background, p: 2, borderRadius: 2 }}>
                   <AccessTimeIcon sx={{ color: colors.gold }} />
                   <Box>

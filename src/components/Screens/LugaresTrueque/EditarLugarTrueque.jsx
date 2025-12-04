@@ -89,13 +89,13 @@ export default function EditarLugarTrueque() {
                 </Box>
               </Box>
 
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={7}><FormLabel required>Nombre</FormLabel><TextField fullWidth {...register("nombre")} error={!!errors.nombre} helperText={errors.nombre?.message} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} /></Grid>
-                <Grid item xs={12} sm={5}><FormLabel required>Tipo</FormLabel><TextField fullWidth select {...register("tipo")} error={!!errors.tipo} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }}>{tipos.map((t) => <MenuItem key={t.id} value={t.id}>{t.nombre}</MenuItem>)}</TextField></Grid>
-                <Grid item xs={12} sm={6}><FormLabel required>Ubicación</FormLabel><TextField fullWidth {...register("ubicacion")} error={!!errors.ubicacion} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} /></Grid>
-                <Grid item xs={12} sm={6}><FormLabel required>Horario</FormLabel><TextField fullWidth {...register("horario")} error={!!errors.horario} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} /></Grid>
-                <Grid item xs={12}><FormLabel required>Dirección</FormLabel><TextField fullWidth {...register("direccion")} error={!!errors.direccion} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} /></Grid>
-                <Grid item xs={12}><FormLabel required>Descripción</FormLabel><TextField fullWidth multiline rows={3} {...register("descripcion")} error={!!errors.descripcion} helperText={errors.descripcion?.message} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} /></Grid>
+              <Grid spacing={2}>
+                <Grid size={{ xs: 12, sm: 7 }}><FormLabel required>Nombre</FormLabel><TextField fullWidth {...register("nombre")} error={!!errors.nombre} helperText={errors.nombre?.message} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} /></Grid>
+                <Grid size={{ xs: 12, sm: 5 }}><FormLabel required>Tipo</FormLabel><TextField fullWidth select {...register("tipo")} error={!!errors.tipo} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }}>{tipos.map((t) => <MenuItem key={t.id} value={t.id}>{t.nombre}</MenuItem>)}</TextField></Grid>
+                <Grid size={{ xs: 12, sm: 6 }}><FormLabel required>Ubicación</FormLabel><TextField fullWidth {...register("ubicacion")} error={!!errors.ubicacion} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} /></Grid>
+                <Grid size={{ xs: 12, sm: 6 }}><FormLabel required>Horario</FormLabel><TextField fullWidth {...register("horario")} error={!!errors.horario} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} /></Grid>
+                <Grid size={{ xs: 12 }}><FormLabel required>Dirección</FormLabel><TextField fullWidth {...register("direccion")} error={!!errors.direccion} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} /></Grid>
+                <Grid size={{ xs: 12 }}><FormLabel required>Descripción</FormLabel><TextField fullWidth multiline rows={3} {...register("descripcion")} error={!!errors.descripcion} helperText={errors.descripcion?.message} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} /></Grid>
               </Grid>
 
               <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end", mt: 3 }}>
