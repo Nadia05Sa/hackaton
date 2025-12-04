@@ -18,7 +18,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import { authService } from "../../../service/authService";
-import { lugaresTruequeData } from "../../../data/datosEstaticos";
+import { useData } from "../../../context/DataContext";
 import Swal from "sweetalert2";
 
 const colors = {
@@ -42,6 +42,9 @@ export default function LugaresTrueque() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   
+  // Usar el contexto global
+  const { lugaresTrueque: lugaresCtx, version } = useData();
+  
   const [lugares, setLugares] = useState([]);
   const [loading, setLoading] = useState(true);
   const [busqueda, setBusqueda] = useState("");
@@ -49,19 +52,15 @@ export default function LugaresTrueque() {
   const rol = authService.getRole();
   const isAdmin = rol === "ADMIN";
 
+  // Cargar datos y re-cargar cuando version cambie (cambio global)
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
-      const lista = isAdmin ? lugaresTruequeData.listar() : lugaresTruequeData.listarActivos();
+      const lista = isAdmin ? lugaresCtx.listar() : lugaresCtx.listarActivos();
       setLugares(lista);
       setLoading(false);
     }, 400);
-  }, [isAdmin]);
-
-  const recargar = () => {
-    const lista = isAdmin ? lugaresTruequeData.listar() : lugaresTruequeData.listarActivos();
-    setLugares(lista);
-  };
+  }, [isAdmin, version]);
 
   const lugaresFiltrados = lugares.filter((lugar) =>
     lugar.nombre?.toLowerCase().includes(busqueda.toLowerCase()) ||
@@ -79,10 +78,10 @@ export default function LugaresTrueque() {
 
   const handleEliminar = async (id) => {
     const result = await Swal.fire({ title: "¿Eliminar lugar?", icon: "warning", showCancelButton: true, confirmButtonColor: colors.error });
-    if (result.isConfirmed) { lugaresTruequeData.eliminar(id); recargar(); Swal.fire({ title: "¡Eliminado!", icon: "success", timer: 1500, showConfirmButton: false }); }
+    if (result.isConfirmed) { lugaresCtx.eliminar(id); Swal.fire({ title: "¡Eliminado!", icon: "success", timer: 1500, showConfirmButton: false }); }
   };
 
-  const handleCambiarEstado = (id) => { lugaresTruequeData.cambiarEstado(id); recargar(); Swal.fire({ title: "¡Actualizado!", icon: "success", timer: 1500, showConfirmButton: false }); };
+  const handleCambiarEstado = (id) => { lugaresCtx.cambiarEstado(id); Swal.fire({ title: "¡Actualizado!", icon: "success", timer: 1500, showConfirmButton: false }); };
 
   const getTipoColor = (tipo) => {
     const colores = { Tianguis: '#27AE60', "Tianguis Cultural": '#9B59B6', Mercado: colors.gold, "Plaza Comercial": '#3498DB', Parque: colors.accent };

@@ -15,7 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SearchIcon from "@mui/icons-material/Search";
 import SaveIcon from "@mui/icons-material/Save";
 import Swal from "sweetalert2";
-import { catalogosData } from "../../../data/datosEstaticos";
+import { useData } from "../../../context/DataContext";
 
 const colors = {
   primary: '#2C3E50', accent: '#2EAA7F', accentLight: '#4ECBA0', gold: '#D4A574', goldLight: '#E8C9A0',
@@ -23,6 +23,9 @@ const colors = {
 };
 
 export default function Catalogos() {
+  // Usar el contexto global
+  const { catalogos, version } = useData();
+  
   const [tabActual, setTabActual] = useState(0);
   const [datos, setDatos] = useState({ categorias: [], estadosProducto: [], tiposLugarTrueque: [], categoriasTuristicas: [] });
   const [busqueda, setBusqueda] = useState("");
@@ -31,22 +34,23 @@ export default function Catalogos() {
   const [formData, setFormData] = useState({ nombre: "", descripcion: "", activo: true });
 
   const tabs = [
-    { label: "Categorías Productos", icon: <CategoryIcon />, key: "categorias", api: catalogosData.categorias },
-    { label: "Estados Producto", icon: <InventoryIcon />, key: "estadosProducto", api: catalogosData.estadosProducto },
-    { label: "Tipos Lugar Trueque", icon: <StorefrontIcon />, key: "tiposLugarTrueque", api: catalogosData.tiposLugarTrueque },
-    { label: "Categorías Turísticas", icon: <PlaceIcon />, key: "categoriasTuristicas", api: catalogosData.categoriasTuristicas },
+    { label: "Categorías Productos", icon: <CategoryIcon />, key: "categorias", api: catalogos.categorias },
+    { label: "Estados Producto", icon: <InventoryIcon />, key: "estadosProducto", api: catalogos.estadosProducto },
+    { label: "Tipos Lugar Trueque", icon: <StorefrontIcon />, key: "tiposLugarTrueque", api: catalogos.tiposLugarTrueque },
+    { label: "Categorías Turísticas", icon: <PlaceIcon />, key: "categoriasTuristicas", api: catalogos.categoriasTuristicas },
   ];
 
   const cargarDatos = () => {
     setDatos({
-      categorias: catalogosData.categorias.listar(),
-      estadosProducto: catalogosData.estadosProducto.listar(),
-      tiposLugarTrueque: catalogosData.tiposLugarTrueque.listar(),
-      categoriasTuristicas: catalogosData.categoriasTuristicas.listar(),
+      categorias: catalogos.categorias.listar(),
+      estadosProducto: catalogos.estadosProducto.listar(),
+      tiposLugarTrueque: catalogos.tiposLugarTrueque.listar(),
+      categoriasTuristicas: catalogos.categoriasTuristicas.listar(),
     });
   };
 
-  useEffect(() => { cargarDatos(); }, []);
+  // Re-cargar cuando cambie la versión (datos globales actualizados)
+  useEffect(() => { cargarDatos(); }, [version]);
 
   const catalogoActual = tabs[tabActual].key;
   const apiActual = tabs[tabActual].api;

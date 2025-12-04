@@ -4,6 +4,7 @@ import { Divider, useTheme, useMediaQuery } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { authService } from './service/authService';
+import { DataProvider } from './context/DataContext';
 
 import Sidebar from './components/Utils/Sidebar.jsx';
 
@@ -59,9 +60,11 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <MainLayout />
-    </Router>
+    <DataProvider>
+      <Router>
+        <MainLayout />
+      </Router>
+    </DataProvider>
   );
 }
 

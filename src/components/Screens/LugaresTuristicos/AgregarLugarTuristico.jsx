@@ -9,7 +9,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Swal from "sweetalert2";
-import { lugaresTuristicosData, catalogosData, IMAGENES_PLACEHOLDER } from "../../../data/datosEstaticos";
+import { useData } from "../../../context/DataContext";
+import { IMAGENES_PLACEHOLDER } from "../../../data/datosEstaticos";
 
 const colors = { primary: '#2C3E50', accent: '#2EAA7F', accentLight: '#4ECBA0', gold: '#D4A574', goldLight: '#E8C9A0', surface: '#FFFFFF', background: '#F5F7FA', textSecondary: '#7F8C8D', border: '#E0E6ED' };
 
@@ -30,13 +31,17 @@ const FormLabel = ({ children, required }) => (
 
 export default function AgregarLugarTuristico() {
   const navigate = useNavigate();
+  
+  // Usar el contexto global
+  const { lugaresTuristicos: lugaresCtx, catalogos } = useData();
+  
   const [imagenPreview, setImagenPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [categorias, setCategorias] = useState([]);
 
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
 
-  useEffect(() => { setCategorias(catalogosData.categoriasTuristicas.listarActivas()); }, []);
+  useEffect(() => { setCategorias(catalogos.categoriasTuristicas.listarActivas()); }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -47,7 +52,8 @@ export default function AgregarLugarTuristico() {
     setLoading(true);
     setTimeout(() => {
       const cat = categorias.find(c => c.id === parseInt(data.categoria));
-      lugaresTuristicosData.crear({
+      // Usa el contexto - notifica a todos los componentes
+      lugaresCtx.crear({
         nombre: data.nombre,
         descripcion: data.descripcion,
         ubicacion: data.ubicacion,
@@ -93,11 +99,11 @@ export default function AgregarLugarTuristico() {
                   </Box>
 
               <Grid container spacing={2} sx={{ mb: 2 }}>
-                <Grid item xs={12} sm={7}>
+                <Grid size={{ xs: 12, md:7}}>
                   <FormLabel required>Nombre del lugar</FormLabel>
                   <TextField fullWidth placeholder="Ej: Pirámide del Sol" {...register("nombre")} error={!!errors.nombre} helperText={errors.nombre?.message} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} />
                 </Grid>
-                <Grid item xs={12} sm={5}>
+                <Grid size={{ xs: 12, md:5}}>
                   <FormLabel required>Categoría</FormLabel>
                   <TextField fullWidth select defaultValue="" {...register("categoria")} error={!!errors.categoria} helperText={errors.categoria?.message} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }}>
                     <MenuItem value="" disabled>Seleccionar</MenuItem>
@@ -107,11 +113,11 @@ export default function AgregarLugarTuristico() {
                 </Grid>
 
               <Grid container spacing={2} sx={{ mb: 2 }}>
-                <Grid item xs={12} sm={6}>
+                <Grid size={{ xs: 12, md:6}}>
                   <FormLabel required>Ubicación</FormLabel>
                   <TextField fullWidth placeholder="Ej: Teotihuacán, Estado de México" {...register("ubicacion")} error={!!errors.ubicacion} helperText={errors.ubicacion?.message} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid size={{ xs: 12, md:6}}>
                   <FormLabel required>Dirección</FormLabel>
                   <TextField fullWidth placeholder="Ej: Av. Principal #123" {...register("direccion")} error={!!errors.direccion} helperText={errors.direccion?.message} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} />
                 </Grid>
@@ -123,11 +129,11 @@ export default function AgregarLugarTuristico() {
               </Box>
 
               <Grid container spacing={2} sx={{ mb: 3 }}>
-                <Grid item xs={12} sm={6}>
+                <Grid size={{ xs: 12, md:6}}>
                   <FormLabel>Horario</FormLabel>
                   <TextField fullWidth placeholder="Ej: 9:00 AM - 6:00 PM" {...register("horario")} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid size={{ xs: 12, md:6}}>
                   <FormLabel>Costo de entrada</FormLabel>
                   <TextField fullWidth type="number" placeholder="Ej: 80 (en pesos)" {...register("costoEntrada")} InputProps={{ sx: { height: 48 } }} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} />
                 </Grid>

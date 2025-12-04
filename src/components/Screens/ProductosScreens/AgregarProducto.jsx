@@ -12,7 +12,8 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Swal from "sweetalert2";
-import { productosData, catalogosData, lugaresTruequeData, IMAGENES_PLACEHOLDER } from "../../../data/datosEstaticos";
+import { useData } from "../../../context/DataContext";
+import { IMAGENES_PLACEHOLDER } from "../../../data/datosEstaticos";
 
 const colors = {
   primary: '#2C3E50', accent: '#2EAA7F', accentLight: '#4ECBA0', gold: '#D4A574', surface: '#FFFFFF', background: '#F5F7FA', textSecondary: '#7F8C8D', border: '#E0E6ED',
@@ -35,6 +36,10 @@ const FormLabel = ({ children, required }) => (
 
 export default function AgregarProducto() {
   const navigate = useNavigate();
+  
+  // Usar el contexto global
+  const { productos: productosCtx, catalogos, lugaresTrueque: lugaresCtx } = useData();
+  
   const [imagenes, setImagenes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [categorias, setCategorias] = useState([]);
@@ -44,9 +49,9 @@ export default function AgregarProducto() {
   const { register, handleSubmit, control, formState: { errors } } = useForm({ resolver: yupResolver(schema), defaultValues: { categorias: [] } });
 
   useEffect(() => {
-    setCategorias(catalogosData.categorias.listarActivas());
-    setEstados(catalogosData.estadosProducto.listarActivos());
-    setLugaresTrueque(lugaresTruequeData.listarActivos());
+    setCategorias(catalogos.categorias.listarActivas());
+    setEstados(catalogos.estadosProducto.listarActivos());
+    setLugaresTrueque(lugaresCtx.listarActivos());
   }, []);
 
   const handleImageChange = (e) => {
@@ -62,7 +67,8 @@ export default function AgregarProducto() {
     setTimeout(() => {
       const categoria = categorias.find(c => data.categorias.includes(c.nombre));
       const estado = estados.find(e => e.nombre === data.estado);
-      productosData.crear({
+      // Usa el contexto - esto notifica a todos los componentes
+      productosCtx.crear({
         nombre: data.nombre,
         descripcion: data.descripcion,
         categoria: categoria?.nombre || data.categorias[0],

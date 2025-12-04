@@ -9,7 +9,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Swal from "sweetalert2";
-import { lugaresTruequeData, catalogosData, IMAGENES_PLACEHOLDER } from "../../../data/datosEstaticos";
+import { useData } from "../../../context/DataContext";
+import { IMAGENES_PLACEHOLDER } from "../../../data/datosEstaticos";
 
 const colors = { primary: '#2C3E50', primaryLight: '#34495E', accent: '#2EAA7F', accentLight: '#4ECBA0', gold: '#D4A574', surface: '#FFFFFF', background: '#F5F7FA', textSecondary: '#7F8C8D', border: '#E0E6ED' };
 
@@ -30,13 +31,17 @@ const FormLabel = ({ children, required }) => (
 
 export default function AgregarLugarTrueque() {
   const navigate = useNavigate();
+  
+  // Usar el contexto global
+  const { lugaresTrueque: lugaresCtx, catalogos } = useData();
+  
   const [imagenPreview, setImagenPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [tipos, setTipos] = useState([]);
 
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
 
-  useEffect(() => { setTipos(catalogosData.tiposLugarTrueque.listarActivos()); }, []);
+  useEffect(() => { setTipos(catalogos.tiposLugarTrueque.listarActivos()); }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -47,7 +52,8 @@ export default function AgregarLugarTrueque() {
     setLoading(true);
     setTimeout(() => {
       const tipoObj = tipos.find(t => t.id === parseInt(data.tipo));
-      lugaresTruequeData.crear({
+      // Usa el contexto - notifica a todos los componentes
+      lugaresCtx.crear({
         nombre: data.nombre,
         descripcion: data.descripcion,
         ubicacion: data.ubicacion,

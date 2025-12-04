@@ -18,7 +18,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import StarIcon from "@mui/icons-material/Star";
 import { authService } from "../../../service/authService";
-import { lugaresTuristicosData } from "../../../data/datosEstaticos";
+import { useData } from "../../../context/DataContext";
 import Swal from "sweetalert2";
 
 const colors = {
@@ -42,6 +42,9 @@ export default function LugaresTuristicos() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   
+  // Usar el contexto global
+  const { lugaresTuristicos: lugaresCtx, version } = useData();
+  
   const [lugares, setLugares] = useState([]);
   const [loading, setLoading] = useState(true);
   const [busqueda, setBusqueda] = useState("");
@@ -49,19 +52,15 @@ export default function LugaresTuristicos() {
   const rol = authService.getRole();
   const isAdmin = rol === "ADMIN";
 
+  // Cargar datos y re-cargar cuando version cambie (cambio global)
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
-      const lista = isAdmin ? lugaresTuristicosData.listar() : lugaresTuristicosData.listarActivos();
+      const lista = isAdmin ? lugaresCtx.listar() : lugaresCtx.listarActivos();
       setLugares(lista);
       setLoading(false);
     }, 400);
-  }, [isAdmin]);
-
-  const recargar = () => {
-    const lista = isAdmin ? lugaresTuristicosData.listar() : lugaresTuristicosData.listarActivos();
-    setLugares(lista);
-  };
+  }, [isAdmin, version]);
 
   const lugaresFiltrados = lugares.filter((lugar) =>
     lugar.nombre?.toLowerCase().includes(busqueda.toLowerCase()) ||
@@ -79,10 +78,10 @@ export default function LugaresTuristicos() {
 
   const handleEliminar = async (id) => {
     const result = await Swal.fire({ title: "¿Eliminar lugar?", icon: "warning", showCancelButton: true, confirmButtonColor: colors.error });
-    if (result.isConfirmed) { lugaresTuristicosData.eliminar(id); recargar(); Swal.fire({ title: "¡Eliminado!", icon: "success", timer: 1500, showConfirmButton: false }); }
+    if (result.isConfirmed) { lugaresCtx.eliminar(id); Swal.fire({ title: "¡Eliminado!", icon: "success", timer: 1500, showConfirmButton: false }); }
   };
 
-  const handleCambiarEstado = (id) => { lugaresTuristicosData.cambiarEstado(id); recargar(); Swal.fire({ title: "¡Actualizado!", icon: "success", timer: 1500, showConfirmButton: false }); };
+  const handleCambiarEstado = (id) => { lugaresCtx.cambiarEstado(id); Swal.fire({ title: "¡Actualizado!", icon: "success", timer: 1500, showConfirmButton: false }); };
 
   const getCategoriaColor = (cat) => {
     const colores = { Arqueológico: colors.gold, Natural: '#27AE60', Cultural: '#3498DB', Gastronómico: '#E74C3C', Religioso: '#9B59B6' };
@@ -208,8 +207,8 @@ export default function LugaresTuristicos() {
 
         <Grid container spacing={{ xs: 2.5, sm: 3 }}>
           {loading
-            ? Array.from(new Array(4)).map((_, i) => <Grid item xs={12} sm={6} md={6} lg={4} key={i}><Card sx={{ borderRadius: 3, height: 380 }}><Skeleton variant="rectangular" height={180} /><CardContent><Skeleton variant="text" height={32} /></CardContent></Card></Grid>)
-            : lugaresFiltrados.map((lugar) => <Grid item xs={12} sm={6} md={6} lg={4} key={lugar.id}><LugarCard lugar={lugar} /></Grid>)
+            ? Array.from(new Array(4)).map((_, i) => <Grid size={{ xs: 12, sm:6, md:6, lg:4, key:i}}><Card sx={{ borderRadius: 3, height: 380 }}><Skeleton variant="rectangular" height={180} /><CardContent><Skeleton variant="text" height={32} /></CardContent></Card></Grid>)
+            : lugaresFiltrados.map((lugar) => <Grid size={{ xs: 12, sm:6, md:6, lg:4, key:lugar.id}}><LugarCard lugar={lugar} /></Grid>)
           }
         </Grid>
 

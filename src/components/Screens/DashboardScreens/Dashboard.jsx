@@ -20,7 +20,7 @@ import CategoryIcon from "@mui/icons-material/Category";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PlaceIcon from "@mui/icons-material/Place";
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryArea, VictoryLine, VictoryTooltip } from "victory";
-import { estadisticasData } from "../../../data/datosEstaticos";
+import { useData } from "../../../context/DataContext";
 
 const colors = {
   primary: '#2C3E50',
@@ -43,6 +43,9 @@ export default function Dashboard() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   
+  // Usar el contexto global
+  const { estadisticas, version } = useData();
+  
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [periodoFiltro, setPeriodoFiltro] = useState('mes');
@@ -50,11 +53,11 @@ export default function Dashboard() {
   const cargarDatos = () => {
     setLoading(true);
     setTimeout(() => {
-      const resumen = estadisticasData.resumen();
-      const truequesPorMes = estadisticasData.truequesPorMes();
-      const categoriasPopulares = estadisticasData.categoriasPopulares();
-      const lugaresActivos = estadisticasData.lugaresActivos();
-      const ultimosTrueques = estadisticasData.ultimosTrueques();
+      const resumen = estadisticas.resumen();
+      const truequesPorMes = estadisticas.truequesPorMes();
+      const categoriasPopulares = estadisticas.categoriasPopulares();
+      const lugaresActivos = estadisticas.lugaresActivos();
+      const ultimosTrueques = estadisticas.ultimosTrueques();
       
       // Calcular promedio mensual
       const promedioMensual = truequesPorMes.length > 0 
@@ -82,7 +85,8 @@ export default function Dashboard() {
     }, 400);
   };
 
-  useEffect(() => { cargarDatos(); }, []);
+  // Re-cargar cuando cambie la versión (datos globales actualizados)
+  useEffect(() => { cargarDatos(); }, [version]);
 
   // Componente de Tarjeta de Métrica
   const MetricCard = ({ title, value, icon, color, tendencia, subtitle, destacado = false }) => (

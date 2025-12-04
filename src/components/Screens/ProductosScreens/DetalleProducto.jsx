@@ -56,13 +56,13 @@ export default function DetalleProducto() {
         </Box>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, sm:6}}>
             <Card sx={{ borderRadius: 3, overflow: "hidden", border: `1px solid ${colors.border}` }}>
               <CardMedia component="img" height={350} image={producto.imagen} alt={producto.nombre} sx={{ objectFit: "cover" }} />
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, sm:6}}>
             <Card sx={{ borderRadius: 3, border: `1px solid ${colors.border}`, height: "100%" }}>
               <CardContent sx={{ p: 3 }}>
                 <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
