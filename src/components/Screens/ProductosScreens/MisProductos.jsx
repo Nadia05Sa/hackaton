@@ -111,9 +111,9 @@ export default function MisProductos() {
               sx={{ mb: 3, minWidth: { xs: "100%", sm: 300 }, "& .MuiOutlinedInput-root": { borderRadius: 3, backgroundColor: colors.background } }} />
 
             <Grid container spacing={3}>
-              {loading ? Array.from(new Array(4)).map((_, i) => <Grid item xs={12} sm={6} key={i}><Card sx={{ borderRadius: 4, height: CARD_HEIGHT }}><Skeleton variant="rectangular" height={CARD_IMAGE_HEIGHT} /><CardContent><Skeleton variant="text" height={32} /></CardContent></Card></Grid>)
+              {loading ? Array.from(new Array(4)).map((_, i) => <Grid size={{ xs: 12, md:6}} key={i}><Card sx={{ borderRadius: 4, height: CARD_HEIGHT }}><Skeleton variant="rectangular" height={CARD_IMAGE_HEIGHT} /><CardContent><Skeleton variant="text" height={32} /></CardContent></Card></Grid>)
                 : productosFiltrados.map((producto) => (
-                <Grid item xs={12} sm={6} key={producto.id}>
+                <Grid size={{ xs: 12, md:6}} key={producto.id}>
                   <Card sx={{ borderRadius: 4, overflow: "hidden", height: CARD_HEIGHT, display: "flex", flexDirection: "column", opacity: producto.activo ? 1 : 0.7, border: `1px solid ${colors.border}`, transition: "all 0.3s ease", "&:hover": { transform: "translateY(-4px)" } }}>
                     <Box sx={{ position: "relative" }}>
                       <CardMedia component="img" height={CARD_IMAGE_HEIGHT} image={producto.imagen} alt={producto.nombre} sx={{ objectFit: "cover", filter: producto.activo ? "none" : "grayscale(50%)" }} />
@@ -151,7 +151,7 @@ export default function MisProductos() {
         {tabValue === 1 && (
           <Grid container spacing={3}>
             {propuestas.map((propuesta) => (
-              <Grid item xs={12} sm={6} key={propuesta.id}>
+              <Grid size={{ xs: 12, md:6}} key={propuesta.id}>
                 <Card sx={{ borderRadius: 4, border: `1px solid ${colors.border}` }}>
                   <CardContent sx={{ p: 3 }}>
                     <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
@@ -178,7 +178,7 @@ export default function MisProductos() {
               </Grid>
             ))}
             {propuestas.length === 0 && (
-              <Grid item xs={12}><Box sx={{ textAlign: "center", py: 8 }}><SwapHorizIcon sx={{ fontSize: 80, color: colors.background, mb: 2 }} /><Typography variant="h6" sx={{ color: colors.primary }}>No has realizado trueques aún</Typography></Box></Grid>
+              <Grid size={{ xs: 12 }}><Box sx={{ textAlign: "center", py: 8 }}><SwapHorizIcon sx={{ fontSize: 80, color: colors.background, mb: 2 }} /><Typography variant="h6" sx={{ color: colors.primary }}>No has realizado trueques aún</Typography></Box></Grid>
             )}
           </Grid>
         )}

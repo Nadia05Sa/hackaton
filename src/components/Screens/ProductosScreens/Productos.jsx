@@ -485,7 +485,7 @@ export default function Productos() {
             </Box>
             <Collapse in={showFilters || !isMobile}>
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6} md={5}>
+                <Grid size={{ xs: 12, sm: 6, md: 5 }}>
                   <TextField
                     fullWidth
                     size="small"
@@ -496,7 +496,7 @@ export default function Productos() {
                     sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }}
                   />
                 </Grid>
-                <Grid item xs={6} sm={3} md={3.5}>
+                <Grid size={{ xs: 6, sm: 3, md: 3.5 }}>
                   <FormControl fullWidth size="small">
                     <Select value={categoriaFiltro} onChange={(e) => setCategoriaFiltro(e.target.value)} sx={{ height: 44, borderRadius: 2, backgroundColor: colors.background }}>
                       <MenuItem value="Todas">Todas las categorías</MenuItem>
@@ -504,7 +504,7 @@ export default function Productos() {
                     </Select>
                   </FormControl>
                 </Grid>
-                <Grid item xs={6} sm={3} md={3.5}>
+                <Grid size={{ xs: 6, sm: 3, md: 3.5 }}>
                   <FormControl fullWidth size="small">
                     <Select value={estadoFiltro} onChange={(e) => setEstadoFiltro(e.target.value)} sx={{ height: 44, borderRadius: 2, backgroundColor: colors.background }}>
                       <MenuItem value="Todos">Todos los estados</MenuItem>
@@ -526,7 +526,7 @@ export default function Productos() {
         <Grid container spacing={{ xs: 2.5, sm: 3 }}>
           {loading
             ? Array.from(new Array(4)).map((_, index) => (
-                <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
+                <Grid size={{ xs: 12, sm: 6, md: 6, lg: 4 }} key={index}>
                   <Card sx={{ borderRadius: 3, height: 400 }}>
                     <Skeleton variant="rectangular" height={180} />
                     <CardContent>
@@ -538,7 +538,7 @@ export default function Productos() {
                 </Grid>
               ))
             : productosFiltrados.map((producto) => (
-                <Grid item xs={12} sm={6} md={6} lg={4} key={producto.id}>
+                <Grid size={{ xs: 12, sm: 6, md: 6, lg: 4 }} key={producto.id}>
                   <ProductCard producto={producto} />
                 </Grid>
               ))}

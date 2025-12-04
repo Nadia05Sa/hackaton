@@ -208,8 +208,8 @@ export default function LugaresTuristicos() {
 
         <Grid container spacing={{ xs: 2.5, sm: 3 }}>
           {loading
-            ? Array.from(new Array(4)).map((_, i) => <Grid item xs={12} sm={6} md={6} lg={4} key={i}><Card sx={{ borderRadius: 3, height: 380 }}><Skeleton variant="rectangular" height={180} /><CardContent><Skeleton variant="text" height={32} /></CardContent></Card></Grid>)
-            : lugaresFiltrados.map((lugar) => <Grid item xs={12} sm={6} md={6} lg={4} key={lugar.id}><LugarCard lugar={lugar} /></Grid>)
+            ? Array.from(new Array(4)).map((_, i) => <Grid size={{ xs: 12, sm: 6, md: 6, lg: 4 }} key={i}><Card sx={{ borderRadius: 3, height: 380 }}><Skeleton variant="rectangular" height={180} /><CardContent><Skeleton variant="text" height={32} /></CardContent></Card></Grid>)
+            : lugaresFiltrados.map((lugar) => <Grid size={{ xs: 12, sm: 6, md: 6, lg: 4 }} key={lugar.id}><LugarCard lugar={lugar} /></Grid>)
           }
         </Grid>
 

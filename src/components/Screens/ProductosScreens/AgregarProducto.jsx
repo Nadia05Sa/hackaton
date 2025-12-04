@@ -118,12 +118,12 @@ export default function AgregarProducto() {
               </Box>
 
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={8}>
+                <Grid size={{ xs: 12, sm: 8 }}>
                   <FormLabel required>Nombre del producto</FormLabel>
                   <TextField fullWidth placeholder="Ej: iPhone 13 Pro" {...register("nombre")} error={!!errors.nombre} helperText={errors.nombre?.message}
                     sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background, height: 48 } }} />
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid size={{ xs: 12, sm: 4 }}>
                   <FormLabel required>Estado</FormLabel>
                   <TextField fullWidth select defaultValue="" {...register("estado")} error={!!errors.estado} helperText={errors.estado?.message}
                     sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background, height: 48 } }}>
@@ -131,7 +131,7 @@ export default function AgregarProducto() {
                     {estados.map((est) => <MenuItem key={est.id} value={est.nombre}>{est.nombre}</MenuItem>)}
                   </TextField>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12}}>
                   <FormLabel required>Categorías</FormLabel>
                   <Controller name="categorias" control={control} render={({ field }) => (
                     <Autocomplete multiple options={categorias.map(c => c.nombre)} value={field.value} onChange={(_, v) => field.onChange(v)}
@@ -140,22 +140,22 @@ export default function AgregarProducto() {
                         sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} />} />
                   )} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12}}>
                   <FormLabel required>Descripción</FormLabel>
                   <TextField fullWidth multiline rows={3} placeholder="Describe tu producto..." {...register("descripcion")} error={!!errors.descripcion} helperText={errors.descripcion?.message}
                     sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background } }} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12}}>
                   <FormLabel required>¿Qué te gustaría recibir a cambio?</FormLabel>
                   <TextField fullWidth placeholder="Ej: MacBook, cámara, o cualquier oferta interesante" {...register("intercambioPor")} error={!!errors.intercambioPor} helperText={errors.intercambioPor?.message}
                     sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background, height: 48 } }} />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <FormLabel required>Ubicación</FormLabel>
                   <TextField fullWidth placeholder="Ej: Ciudad de México" {...register("ubicacion")} error={!!errors.ubicacion} helperText={errors.ubicacion?.message}
                     sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background, height: 48 } }} />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <FormLabel>Lugar preferido para trueque</FormLabel>
                   <TextField fullWidth select defaultValue="" {...register("lugarTrueque")}
                     sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, backgroundColor: colors.background, height: 48 } }}>

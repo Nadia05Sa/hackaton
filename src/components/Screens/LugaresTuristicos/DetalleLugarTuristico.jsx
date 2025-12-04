@@ -54,7 +54,7 @@ export default function DetalleLugarTuristico() {
         </Box>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} md={7}>
+          <Grid size={{ xs: 12, sm: 7 }}>
             <Card sx={{ borderRadius: 3, overflow: "hidden", border: `1px solid ${colors.border}`, mb: 3 }}>
               <CardMedia component="img" height={350} image={lugar.imagen} alt={lugar.nombre} sx={{ objectFit: "cover" }} />
               <CardContent sx={{ p: 3 }}>
@@ -83,7 +83,7 @@ export default function DetalleLugarTuristico() {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={5}>
+          <Grid size={{ xs: 12, sm: 5 }}>
             {/* Nueva reseña */}
             <Card sx={{ borderRadius: 3, border: `1px solid ${colors.border}`, mb: 3 }}>
               <CardContent sx={{ p: 3 }}>
