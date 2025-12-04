@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API - Alma Viajera</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 20px;
+            background: #f5f7fa;
+        }
+        h1 { color: #2C3E50; }
+        h2 { color: #2EAA7F; margin-top: 30px; }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #2C3E50; }
+        input, textarea { 
+            width: 100%; 
+            padding: 10px; 
+            margin-bottom: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        button { 
+            background: linear-gradient(135deg, #2EAA7F, #4ECBA0); 
+            color: white; 
+            padding: 12px 24px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px;
+            font-weight: 600;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(46,170,127,0.3); }
+        button.secondary { background: #2C3E50; }
+        pre { 
+            background: #1a252f; 
+            color: #4ECBA0; 
+            padding: 15px; 
+            border-radius: 8px; 
+            overflow-x: auto;
+            white-space: pre-wrap;
+            font-size: 13px;
+        }
+        .success { color: #2EAA7F; font-weight: bold; }
+        .error { color: #E74C3C; font-weight: bold; }
+        .info { background: #e8f4f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #2EAA7F; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test API - Alma Viajera</h1>
+    
+    <div class="info">
+        <strong>URL Base:</strong> <span id="baseUrl">http://localhost:8080</span><br>
+        <strong>Estado:</strong> <span id="serverStatus">Verificando...</span>
+    </div>
+
+    <!-- Test de Conexión -->
+    <div class="card">
+        <h2>🔌 Test de Conexión</h2>
+        <label>URL del Backend:</label>
+        <input type="text" id="apiUrl" value="http://localhost:8080">
+        <button onclick="testConnection()">Probar Conexión</button>
+        <button class="secondary" onclick="testSwagger()">Ver Swagger</button>
+        <pre id="connectionResult">Haz clic en "Probar Conexión" para verificar...</pre>
+    </div>
+
+    <!-- Login -->
+    <div class="card">
+        <h2>🔐 Login</h2>
+        <p>Endpoint: <code>POST /auth/login</code></p>
+        <div class="grid">
+            <div>
+                <label>Email/Username:</label>
+                <input type="text" id="loginEmail" value="admin@almaviajera.com">
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" id="loginPassword" value="admin123">
+            </div>
+        </div>
+        <button onclick="testLogin()">🔑 Probar Login</button>
+        <pre id="loginResult">...</pre>
+    </div>
+
+    <!-- Registro -->
+    <div class="card">
+        <h2>📝 Registro de Usuario</h2>
+        <p>Endpoint: <code>POST /auth/registro</code></p>
+        <div class="grid">
+            <div>
+                <label>Nombre:</label>
+                <input type="text" id="regNombre" value="Usuario">
+            </div>
+            <div>
+                <label>Apellido Paterno:</label>
+                <input type="text" id="regApellidoP" value="Prueba">
+            </div>
+            <div>
+                <label>Apellido Materno:</label>
+                <input type="text" id="regApellidoM" value="Test">
+            </div>
+            <div>
+                <label>Email:</label>
+                <input type="email" id="regEmail" value="usuario@test.com">
+            </div>
+            <div>
+                <label>Teléfono:</label>
+                <input type="text" id="regTelefono" value="5551234567">
+            </div>
+            <div>
+                <label>Username:</label>
+                <input type="text" id="regUsername" value="usuario_test">
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" id="regPassword" value="password123">
+            </div>
+        </div>
+        <button onclick="testRegistro()">📝 Probar Registro</button>
+        <pre id="registroResult">...</pre>
+    </div>
+
+    <!-- Recuperar Contraseña -->
+    <div class="card">
+        <h2>🔓 Recuperar Contraseña</h2>
+        <p>Endpoint: <code>GET /auth/{usuario}</code></p>
+        <label>Usuario/Email:</label>
+        <input type="text" id="recuperarUsuario" value="admin@almaviajera.com">
+        <button onclick="testRecuperar()">📧 Solicitar Recuperación</button>
+        <pre id="recuperarResult">...</pre>
+    </div>
+
+    <!-- Endpoints Públicos -->
+    <div class="card">
+        <h2>🌐 Endpoints Públicos</h2>
+        <button onclick="testEndpoint('/productos')">📦 Productos</button>
+        <button onclick="testEndpoint('/lugares-turisticos/activos')">📍 Lugares Turísticos</button>
+        <button onclick="testEndpoint('/lugares-trueque/activos')">🏪 Lugares Trueque</button>
+        <button onclick="testEndpoint('/catalogos/categorias/activas')">🏷️ Categorías</button>
+        <button onclick="testEndpoint('/catalogos/estados-producto/activos')">📊 Estados</button>
+        <pre id="publicResult">Selecciona un endpoint para probar...</pre>
+    </div>
+
+    <!-- Payload Reference -->
+    <div class="card">
+        <h2>📋 Referencia de Payloads</h2>
+        
+        <h3>Login (POST /auth/login)</h3>
+        <pre>{
+  "email": "usuario@email.com",   // o "username"
+  "password": "contraseña"
+}</pre>
+
+        <h3>Registro (POST /auth/registro)</h3>
+        <pre>{
+  "nombre": "Juan",
+  "apellidoPaterno": "Pérez",
+  "apellidoMaterno": "García",
+  "email": "juan@email.com",
+  "telefono": "5551234567",
+  "username": "juanperez",
+  "password": "miContraseña123",
+  "rol": "USUARIO"
+}</pre>
+    </div>
+
+    <script>
+        const getUrl = () => document.getElementById('apiUrl').value;
+
+        async function testConnection() {
+            const result = document.getElementById('connectionResult');
+            const status = document.getElementById('serverStatus');
+            result.innerHTML = '⏳ Conectando...';
+            
+            try {
+                // Intentar conectar al servidor
+                const response = await fetch(getUrl() + '/actuator/health', { 
+                    method: 'GET',
+                    mode: 'cors'
+                }).catch(() => null);
+                
+                if (response && response.ok) {
+                    const data = await response.json();
+                    result.innerHTML = '<span class="success">✅ Servidor conectado!</span>\n\n' + JSON.stringify(data, null, 2);
+                    status.innerHTML = '<span class="success">✅ Conectado</span>';
+                } else {
+                    // Probar otro endpoint
+                    const resp2 = await fetch(getUrl() + '/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: 'test', password: 'test' })
+                    }).catch(e => ({ status: 'error', message: e.message }));
+                    
+                    if (resp2.status === 401) {
+                        result.innerHTML = '<span class="success">✅ Servidor conectado!</span>\n(El endpoint de login responde correctamente con 401 para credenciales inválidas)';
+                        status.innerHTML = '<span class="success">✅ Conectado</span>';
+                    } else {
+                        throw new Error('No se pudo conectar');
+                    }
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">❌ Error de conexión</span>\n\n' + 
+                    'Posibles causas:\n' +
+                    '1. El backend no está corriendo en ' + getUrl() + '\n' +
+                    '2. CORS no está configurado\n' +
+                    '3. El puerto está incorrecto\n\n' +
+                    'Error: ' + error.message;
+                status.innerHTML = '<span class="error">❌ Desconectado</span>';
+            }
+        }
+
+        function testSwagger() {
+            window.open(getUrl() + '/swagger-ui.html', '_blank');
+        }
+
+        async function testLogin() {
+            const result = document.getElementById('loginResult');
+            result.innerHTML = '⏳ Enviando...';
+            
+            const payload = {
+                email: document.getElementById('loginEmail').value,
+                username: document.getElementById('loginEmail').value,
+                password: document.getElementById('loginPassword').value
+            };
+            
+            try {
+                const response = await fetch(getUrl() + '/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json().catch(() => response.text());
+                
+                if (response.ok) {
+                    result.innerHTML = '<span class="success">✅ Login exitoso!</span>\n\n' +
+                        'Payload enviado:\n' + JSON.stringify(payload, null, 2) + '\n\n' +
+                        'Respuesta:\n' + JSON.stringify(data, null, 2);
+                    
+                    // Guardar token si existe
+                    const token = data.token || data.accessToken || data;
+                    if (token && typeof token === 'string') {
+                        localStorage.setItem('testToken', token);
+                        result.innerHTML += '\n\n🔑 Token guardado para pruebas autenticadas';
+                    }
+                } else {
+                    result.innerHTML = '<span class="error">❌ Error ' + response.status + '</span>\n\n' +
+                        'Payload enviado:\n' + JSON.stringify(payload, null, 2) + '\n\n' +
+                        'Respuesta:\n' + JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">❌ Error de conexión</span>\n\n' + error.message;
+            }
+        }
+
+        async function testRegistro() {
+            const result = document.getElementById('registroResult');
+            result.innerHTML = '⏳ Enviando...';
+            
+            const payload = {
+                nombre: document.getElementById('regNombre').value,
+                apellidoPaterno: document.getElementById('regApellidoP').value,
+                apellidoMaterno: document.getElementById('regApellidoM').value,
+                email: document.getElementById('regEmail').value,
+                telefono: document.getElementById('regTelefono').value,
+                username: document.getElementById('regUsername').value,
+                password: document.getElementById('regPassword').value,
+                rol: "USUARIO"
+            };
+            
+            try {
+                const response = await fetch(getUrl() + '/auth/registro', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json().catch(() => response.text());
+                
+                if (response.ok) {
+                    result.innerHTML = '<span class="success">✅ Registro exitoso!</span>\n\n' +
+                        'Payload enviado:\n' + JSON.stringify(payload, null, 2) + '\n\n' +
+                        'Respuesta:\n' + JSON.stringify(data, null, 2);
+                } else {
+                    result.innerHTML = '<span class="error">❌ Error ' + response.status + '</span>\n\n' +
+                        'Payload enviado:\n' + JSON.stringify(payload, null, 2) + '\n\n' +
+                        'Respuesta:\n' + JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">❌ Error de conexión</span>\n\n' + error.message;
+            }
+        }
+
+        async function testRecuperar() {
+            const result = document.getElementById('recuperarResult');
+            result.innerHTML = '⏳ Enviando...';
+            
+            const usuario = document.getElementById('recuperarUsuario').value;
+            
+            try {
+                const response = await fetch(getUrl() + '/auth/' + encodeURIComponent(usuario), {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const data = await response.json().catch(() => response.text());
+                
+                if (response.ok) {
+                    result.innerHTML = '<span class="success">✅ Solicitud enviada!</span>\n\n' +
+                        'Respuesta:\n' + JSON.stringify(data, null, 2);
+                } else {
+                    result.innerHTML = '<span class="error">❌ Error ' + response.status + '</span>\n\n' +
+                        'Respuesta:\n' + JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">❌ Error de conexión</span>\n\n' + error.message;
+            }
+        }
+
+        async function testEndpoint(endpoint) {
+            const result = document.getElementById('publicResult');
+            result.innerHTML = '⏳ Consultando ' + endpoint + '...';
+            
+            try {
+                const token = localStorage.getItem('testToken');
+                const headers = { 'Content-Type': 'application/json' };
+                if (token) headers['Authorization'] = 'Bearer ' + token;
+                
+                const response = await fetch(getUrl() + endpoint, {
+                    method: 'GET',
+                    headers: headers
+                });
+                
+                const data = await response.json().catch(() => response.text());
+                
+                if (response.ok) {
+                    result.innerHTML = '<span class="success">✅ GET ' + endpoint + '</span>\n\n' +
+                        JSON.stringify(data, null, 2);
+                } else {
+                    result.innerHTML = '<span class="error">❌ Error ' + response.status + ' - ' + endpoint + '</span>\n\n' +
+                        JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="error">❌ Error de conexión</span>\n\n' + error.message;
+            }
+        }
+
+        // Test de conexión al cargar
+        window.onload = () => testConnection();
+    </script>
+</body>
+</html>
+
+
+

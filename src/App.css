@@ -1,163 +1,530 @@
-*{
-  margin:0;
-  padding: 0;
+/* ========================================
+   TRUEQUE CULTURA - Diseño Responsivo
+   Paleta: Azul Marino, Dorado, Verde Teal
+   ======================================== */
+
+/* CSS Variables - Paleta de Colores */
+:root {
+  --primary: #2C3E50;
+  --primary-light: #34495E;
+  --primary-dark: #1a252f;
+  --secondary: #D4A574;
+  --secondary-light: #E8C9A0;
+  --secondary-dark: #B8885A;
+  --accent: #2EAA7F;
+  --accent-light: #4ECBA0;
+  --accent-dark: #238B66;
+  --background: #F5F7FA;
+  --surface: #FFFFFF;
+  --text-primary: #2C3E50;
+  --text-secondary: #7F8C8D;
+  --text-light: #BDC3C7;
+  --border: #E0E6ED;
+  --success: #27AE60;
+  --warning: #F39C12;
+  --error: #E74C3C;
+  --shadow-sm: 0 2px 8px rgba(44, 62, 80, 0.08);
+  --shadow-md: 0 4px 20px rgba(44, 62, 80, 0.12);
+  --shadow-lg: 0 8px 40px rgba(44, 62, 80, 0.16);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.3;
+}
+
 .text {
-  color: black;
-  font-family: 'Roboto', sans-serif;
+  color: var(--text-primary);
 }
 
 .page-title {
-  font-size: 3rem;
-  font-weight: 500;
-  color: black;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--primary);
 }
 
-.botones-superiores{
-  display:flex;
-  justify-content: space-between;
+/* Layout */
+.app {
+  min-height: 100vh;
 }
 
-
-.flex{
+.flex {
   display: flex;
 }
 
 .content {
-  padding: 1rem;
-  color: black;         
-  background-color: white;
+  padding: clamp(1rem, 3vw, 2rem);
+  color: var(--text-primary);
+  background-color: var(--background);
   flex: 1;
-  border: 1px solid #ccc;
-  
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.isXsClass{
+.isXsClass {
   min-width: 100%;
   min-height: 100vh;
 }
-.is100Class{
+
+.is100Class {
   min-height: 100vh;
 }
 
-.custom-btn {
-  border: none;                 
-  background-color: transparent; 
-  color: #fff;                 
-  transition: background-color 0.2s ease;
-}
-
-.custom-btn:hover {
-  background-color:rgba(255, 255, 255, 0.1);    
-}
-
-.custom-btn.active {
-  background-color:rgba(0, 0, 0, 0.281);    
-  color: #000;
-  font-weight: bold;
-}
-
-.profile-form-container {
-  margin-top: 2%;
-  max-width: 1400px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
-  .form-title {
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 24px;
-    font-weight: bold;
-  }
-
-  .profile-form {
-    .form-group {
-      margin-bottom: 20px;
-
-      label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-        color: #555;
-      }
-
-      .form-control {
-        width: 100%;
-        padding: 10px 15px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        background-color: #f9f9f9;
-        color: #333;
-
-        &:read-only {
-          background-color: #f0f0f0;
-          cursor: not-allowed;
-        }
-      }
-    }
-
-    .form-buttons {
-      display: flex;
-      justify-content: flex-end;
-      gap: 15px;
-      margin-top: 30px;
-
-      .btn {
-        padding: 10px 25px;
-        border-radius: 4px;
-        font-weight: 500;
-
-        &-secondary {
-          background-color: #6c757d;
-          border-color: #6c757d;
-          color: white;
-
-          &:hover {
-            background-color: #5a6268;
-            border-color: #545b62;
-          }
-        }
-
-        &-primary {
-          background-color: #007bff;
-          border-color: #007bff;
-          color: white;
-
-          &:hover {
-            background-color: #0069d9;
-            border-color: #0062cc;
-          }
-        }
-      }
-    }
-  }
-} 
-
+/* ========================================
+   SIDEBAR STYLES
+   ======================================== */
 .MuiDrawer-paper.sidebar {
-  border-right: 1px solid #41514D;
-  background-color: #41514D !important;
+  border-right: none;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+  box-shadow: 4px 0 24px rgba(44, 62, 80, 0.2);
 }
 
 .MuiDrawer-paper.sidebar ul {
-  padding: 0.3rem 0;
+  padding: 0.75rem 0;
 }
 
 .MuiDrawer-paper.sidebar ul li {
-  margin-bottom: 0.9rem;
+  margin-bottom: 4px;
+  padding: 0 0.75rem;
 }
 
 .MuiDrawer-paper.sidebar ul li a {
-  display: block;
-  padding: 0.5rem 1.3rem;
-  border-radius: 0.375rem;
-  transition: background-color 0.2s;
-  color: #fff;
-  text-align: start;
+  display: flex;
+  align-items: center;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+  color: var(--text-light);
   text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
 }
+
 .MuiDrawer-paper.sidebar ul li a:hover {
-  background-color: #2e3937;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--surface);
+  transform: translateX(4px);
+}
+
+.MuiDrawer-paper.sidebar ul li a.active {
+  background: linear-gradient(135deg, rgba(46, 170, 127, 0.25) 0%, rgba(78, 203, 160, 0.15) 100%);
+  color: var(--accent-light);
+  border-left: 3px solid var(--accent);
+  font-weight: 600;
+}
+
+/* Custom Button */
+.custom-btn {
+  border: none;
+  background-color: transparent;
+  color: var(--text-light);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.custom-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--surface);
+}
+
+.custom-btn.active {
+  background: linear-gradient(135deg, rgba(46, 170, 127, 0.25) 0%, rgba(78, 203, 160, 0.15) 100%);
+  color: var(--accent-light);
+  border-left: 3px solid var(--accent);
+  font-weight: 600;
+}
+
+/* ========================================
+   FORM STYLES
+   ======================================== */
+.profile-form-container {
+  margin-top: 2%;
+  max-width: 1400px;
+  padding: clamp(1rem, 3vw, 2rem);
+  background-color: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.profile-form-container .form-title {
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: 700;
+}
+
+.profile-form-container .profile-form .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.profile-form-container .profile-form .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.9rem;
+}
+
+.profile-form-container .profile-form .form-group .form-control {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.profile-form-container .profile-form .form-group .form-control:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(46, 170, 127, 0.15);
+}
+
+.profile-form-container .profile-form .form-group .form-control:read-only {
+  background-color: var(--background);
+  cursor: not-allowed;
+  color: var(--text-secondary);
+}
+
+.profile-form-container .profile-form .form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.profile-form-container .profile-form .form-buttons .btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  min-width: 120px;
+}
+
+.profile-form-container .profile-form .form-buttons .btn-secondary {
+  background-color: var(--text-secondary);
+  border-color: var(--text-secondary);
+  color: white;
+}
+
+.profile-form-container .profile-form .form-buttons .btn-secondary:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.profile-form-container .profile-form .form-buttons .btn-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+  border: none;
+  color: white;
+  box-shadow: 0 4px 15px rgba(46, 170, 127, 0.3);
+}
+
+.profile-form-container .profile-form .form-buttons .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(46, 170, 127, 0.4);
+}
+
+/* ========================================
+   CARD STYLES
+   ======================================== */
+.card-hover {
+  transition: var(--transition);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ========================================
+   GRADIENT UTILITIES
+   ======================================== */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+}
+
+.gradient-warning {
+  background: linear-gradient(135deg, var(--warning) 0%, #F1C40F 100%);
+}
+
+.gradient-danger {
+  background: linear-gradient(135deg, var(--error) 0%, #C0392B 100%);
+}
+
+/* ========================================
+   SCROLLBAR
+   ======================================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(46, 170, 127, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(46, 170, 127, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(46, 170, 127, 0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-slide-in {
+  animation: slideInLeft 0.5s ease forwards;
+}
+
+.pulse-animation {
+  animation: pulse 2s infinite;
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+/* Extra small devices (phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .content {
+    padding: 0.75rem;
+  }
+
+  .page-title {
+    font-size: 1.25rem;
+  }
+
+  .profile-form-container {
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: var(--radius-md);
+  }
+
+  .profile-form-container .form-buttons {
+    flex-direction: column;
+  }
+
+  .profile-form-container .form-buttons .btn {
+    width: 100%;
+  }
+
+  /* Hide text in sidebar on mobile when collapsed */
+  .MuiDrawer-paper.sidebar ul li a span {
+    font-size: 0.85rem;
+  }
+}
+
+/* Small devices (landscape phones, 576px - 767px) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .content {
+    padding: 1rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Medium devices (tablets, 768px - 991px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .content {
+    padding: 1.25rem;
+  }
+
+  .page-title {
+    font-size: 1.75rem;
+  }
+}
+
+/* Large devices (desktops, 992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .content {
+    padding: 1.5rem;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .content {
+    padding: 2rem;
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+.text-primary { color: var(--primary) !important; }
+.text-secondary { color: var(--text-secondary) !important; }
+.text-accent { color: var(--accent) !important; }
+.text-gold { color: var(--secondary) !important; }
+.text-success { color: var(--success) !important; }
+.text-warning { color: var(--warning) !important; }
+.text-error { color: var(--error) !important; }
+
+.bg-primary { background-color: var(--primary) !important; }
+.bg-accent { background-color: var(--accent) !important; }
+.bg-gold { background-color: var(--secondary) !important; }
+.bg-surface { background-color: var(--surface) !important; }
+.bg-background { background-color: var(--background) !important; }
+
+.shadow-sm { box-shadow: var(--shadow-sm) !important; }
+.shadow-md { box-shadow: var(--shadow-md) !important; }
+.shadow-lg { box-shadow: var(--shadow-lg) !important; }
+
+.rounded-sm { border-radius: var(--radius-sm) !important; }
+.rounded-md { border-radius: var(--radius-md) !important; }
+.rounded-lg { border-radius: var(--radius-lg) !important; }
+.rounded-xl { border-radius: var(--radius-xl) !important; }
+
+/* Touch-friendly sizing for mobile */
+@media (hover: none) and (pointer: coarse) {
+  button, 
+  .btn,
+  a.custom-btn,
+  .MuiButton-root,
+  .MuiIconButton-root {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .MuiDrawer-paper.sidebar ul li a {
+    padding: 1rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: #2C3E50;
+    --text-secondary: #2C3E50;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .MuiDrawer-paper.sidebar {
+    display: none !important;
+  }
+  
+  .content {
+    padding: 0;
+    background: white;
+  }
 }

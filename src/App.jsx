@@ -14,32 +14,29 @@ import RecuperarContraseña from './components/RecuperarContraseña.jsx';
 // Pantallas de perfil
 import Profile from './components/Screens/ProfileScreens/Profile.jsx';
 
-// Pantallas de operador
-import Operador from './components/Screens/OperadorScreens/Operador.jsx';
-import ConsultarOperador from './components/Screens/OperadorScreens/ConsultarOperador.jsx';
-import CrearOperador from './components/Screens/OperadorScreens/CrearOperador.jsx';
+// Pantallas de Dashboard/Estadísticas
+import Dashboard from './components/Screens/DashboardScreens/Dashboard.jsx';
 
-// Pantallas de Equipo
-import Equipo from './components/Screens/EquiposScreens/Equipo.jsx';
-import AgregarEquipo from './components/Screens/EquiposScreens/AgregarEquipo.jsx';
-import ConsultarEquipo from './components/Screens/EquiposScreens/DatosEquipo.jsx';
-import GestionarEquipos from './components/Screens/EquiposScreens/GestionarEquipos.jsx';
-import SeleccionarEmpleado from './components/Screens/EquiposScreens/SeleccionarEmpleado.jsx';
-import DatosAsignacion from './components/Screens/EquiposScreens/DatosAsignacion.jsx';
-import ConsultarLista from './components/Screens/EquiposScreens/ConsultarLista.jsx';
+// Pantallas de Productos para Trueque
+import Productos from './components/Screens/ProductosScreens/Productos.jsx';
+import AgregarProducto from './components/Screens/ProductosScreens/AgregarProducto.jsx';
+import DetalleProducto from './components/Screens/ProductosScreens/DetalleProducto.jsx';
+import MisProductos from './components/Screens/ProductosScreens/MisProductos.jsx';
 
-// Pantallas de empleado
-import Empleado from './components/Screens/EmpleadoScreens/Empleado.jsx';
-import CrearEmpleado from './components/Screens/EmpleadoScreens/CrearEmpleado.jsx';
-import ConsultarEmpleado from './components/Screens/EmpleadoScreens/ConsultarEmpleado.jsx';
-import LogResponsivas from './components/Screens/EmpleadoScreens/LogResponsivas.jsx';
+// Pantallas de Lugares Turísticos
+import LugaresTuristicos from './components/Screens/LugaresTuristicos/LugaresTuristicos.jsx';
+import AgregarLugarTuristico from './components/Screens/LugaresTuristicos/AgregarLugarTuristico.jsx';
+import DetalleLugarTuristico from './components/Screens/LugaresTuristicos/DetalleLugarTuristico.jsx';
+import EditarLugarTuristico from './components/Screens/LugaresTuristicos/EditarLugarTuristico.jsx';
 
-// Pantallas de asignacion
-import Asignacion from './components/Screens/AsignacionesScreens/Asignacion.jsx';
-import ConsultarAsignacion from './components/Screens/AsignacionesScreens/ConsultarAsignacion.jsx';
+// Pantallas de Lugares de Trueque
+import LugaresTrueque from './components/Screens/LugaresTrueque/LugaresTrueque.jsx';
+import AgregarLugarTrueque from './components/Screens/LugaresTrueque/AgregarLugarTrueque.jsx';
+import DetalleLugarTrueque from './components/Screens/LugaresTrueque/DetalleLugarTrueque.jsx';
+import EditarLugarTrueque from './components/Screens/LugaresTrueque/EditarLugarTrueque.jsx';
 
-// Pantallas de peticion
-import Validacion from './components/Screens/PeticionesScreens/Validacion.jsx';
+// Pantallas de Catálogos/Configuración (Admin)
+import Catalogos from './components/Screens/CatalogosScreens/Catalogos.jsx';
 
 // Componente de ruta protegida por rol
 function ProtectedRoute({ children, allowedRoles }) {
@@ -59,7 +56,7 @@ function App() {
   useEffect(() => {
     // Initialize authentication on app startup
     authService.initializeAuth();
-  }, []); // Cerrar correctamente el useEffect
+  }, []);
 
   return (
     <Router>
@@ -90,160 +87,60 @@ function MainLayout() {
 
           {/* Rutas accesibles para ambos roles */}
           <Route path="/profile" element={
-            <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}><Profile /></ProtectedRoute>
+            <ProtectedRoute allowedRoles={['ADMIN', 'USUARIO']}><Profile /></ProtectedRoute>
           } />
 
-          <Route path="/equipo" element={
-            <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}><Equipo /></ProtectedRoute>
-          } >
-            <Route
-              path="gestionar"
-              element={
-                <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                  <GestionarEquipos />
-                </ProtectedRoute>
-              }
-            >
-              <Route
-                path="seleccionarEmpleado"
-                element={
-                  <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                    <SeleccionarEmpleado />
-                  </ProtectedRoute>
-                }
-              >
-                <Route
-                  path="datosAsignacion"
-                  element={
-                    <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                      <DatosAsignacion />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="consultarLista"
-                  element={
-                    <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                      <ConsultarLista />
-                    </ProtectedRoute>
-                  }></Route>
-              </Route>
-            </Route>
-            <Route
-              path="agregarEquipo"
-              element={
-                <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                  <AgregarEquipo />
-                </ProtectedRoute>
-              }
-            ></Route>
-            <Route
-              path="consultarEquipo"
-              element={
-                <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                  <ConsultarEquipo />
-                </ProtectedRoute>
-              }
-            ></Route>
-          </Route>
+          {/* Dashboard - Solo Admin */}
+          <Route path="/dashboard" element={
+            <ProtectedRoute allowedRoles={['ADMIN']}><Dashboard /></ProtectedRoute>
+          } />
 
-          <Route path="/empleado" element={
-            <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}><Empleado /></ProtectedRoute>
-          } >
-            <Route
-              path="consultarEmpleado"
-              element={
-                <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                  <ConsultarEmpleado />
-                </ProtectedRoute>
-              }>
-              <Route
-                path="logResponsivas"
-                element={
-                  <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                    <LogResponsivas />
-                  </ProtectedRoute>
-                }></Route>
-            </Route>
-            <Route
-              path="crearEmpleado"
-              element={
-                <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                  <CrearEmpleado />
-                </ProtectedRoute>
-              }>
-            </Route>
-          </Route>
+          {/* Productos para Trueque */}
+          <Route path="/productos" element={
+            <ProtectedRoute allowedRoles={['ADMIN', 'USUARIO']}><Productos /></ProtectedRoute>
+          } />
+          <Route path="/productos/agregar" element={
+            <ProtectedRoute allowedRoles={['ADMIN', 'USUARIO']}><AgregarProducto /></ProtectedRoute>
+          } />
+          <Route path="/productos/detalle/:id" element={
+            <ProtectedRoute allowedRoles={['ADMIN', 'USUARIO']}><DetalleProducto /></ProtectedRoute>
+          } />
+          <Route path="/productos/mis-productos" element={
+            <ProtectedRoute allowedRoles={['ADMIN', 'USUARIO']}><MisProductos /></ProtectedRoute>
+          } />
 
-          <Route path="/asignacion" element={
-            <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}><Asignacion /></ProtectedRoute>
-          }>
-            <Route
-              path="consultarAsignacion"
-              element={
-                <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                  <ConsultarAsignacion />
-                </ProtectedRoute>
-              }></Route>
-          </Route>
+          {/* Lugares Turísticos */}
+          <Route path="/lugares-turisticos" element={
+            <ProtectedRoute allowedRoles={['ADMIN', 'USUARIO']}><LugaresTuristicos /></ProtectedRoute>
+          } />
+          <Route path="/lugares-turisticos/agregar" element={
+            <ProtectedRoute allowedRoles={['ADMIN']}><AgregarLugarTuristico /></ProtectedRoute>
+          } />
+          <Route path="/lugares-turisticos/detalle/:id" element={
+            <ProtectedRoute allowedRoles={['ADMIN', 'USUARIO']}><DetalleLugarTuristico /></ProtectedRoute>
+          } />
+          <Route path="/lugares-turisticos/editar/:id" element={
+            <ProtectedRoute allowedRoles={['ADMIN']}><EditarLugarTuristico /></ProtectedRoute>
+          } />
 
-          <Route path="/validacion" element={
-            <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}><Validacion /></ProtectedRoute>
-          } >
-            <Route
-              path="consultarOperador"
-              element={
-                <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                  <ConsultarOperador />
-                </ProtectedRoute>
-              }></Route>
+          {/* Lugares de Trueque */}
+          <Route path="/lugares-trueque" element={
+            <ProtectedRoute allowedRoles={['ADMIN', 'USUARIO']}><LugaresTrueque /></ProtectedRoute>
+          } />
+          <Route path="/lugares-trueque/agregar" element={
+            <ProtectedRoute allowedRoles={['ADMIN']}><AgregarLugarTrueque /></ProtectedRoute>
+          } />
+          <Route path="/lugares-trueque/detalle/:id" element={
+            <ProtectedRoute allowedRoles={['ADMIN', 'USUARIO']}><DetalleLugarTrueque /></ProtectedRoute>
+          } />
+          <Route path="/lugares-trueque/editar/:id" element={
+            <ProtectedRoute allowedRoles={['ADMIN']}><EditarLugarTrueque /></ProtectedRoute>
+          } />
 
-            <Route
-              path="consultarLista"
-              element={
-                <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                  <ConsultarLista />
-                </ProtectedRoute>
-              }></Route>
-
-            <Route
-              path="consultarEmpleado"
-              element={
-                <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                  <ConsultarEmpleado />
-                </ProtectedRoute>
-              }></Route>
-
-            <Route
-              path="consultarAsignacion"
-              element={
-                <ProtectedRoute allowedRoles={['ADMIN', 'OPERADOR']}>
-                  <ConsultarAsignacion />
-                </ProtectedRoute>
-              }></Route>
-
-          </Route>
-
-          {/* Rutas solo para admin */}
-          <Route path="/operador" element={
-            <ProtectedRoute allowedRoles={['ADMIN']}><Operador /></ProtectedRoute>
-          } >
-            <Route
-              path="crearOperador"
-              element={
-                <ProtectedRoute allowedRoles={['ADMIN']}>
-                  <CrearOperador />
-                </ProtectedRoute>
-              }></Route>
-            <Route
-              path="consultarOperador"
-              element={
-                <ProtectedRoute allowedRoles={['ADMIN']}>
-                  <ConsultarOperador />
-                </ProtectedRoute>
-              }></Route>
-          </Route>
-
+          {/* Catálogos/Configuración - Solo Admin */}
+          <Route path="/catalogos" element={
+            <ProtectedRoute allowedRoles={['ADMIN']}><Catalogos /></ProtectedRoute>
+          } />
 
           {/* Redirección para rutas no encontradas */}
           <Route path="*" element={<Navigate to="/" replace />} />
